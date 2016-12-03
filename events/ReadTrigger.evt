@@ -4,4 +4,4 @@
 // e.g. after injecting TickManagerSupport.mon, you could send in:
 // com.apama.marketdata.Depth("MSFT.O", [100.0, 99.9], [88.0], [], [10000, 20000], [14000], {"SERVICE_NAME": "MyMarketDataProviderName"})
 
-	saep.soccer.ReadTrigger("full-game")
+	saep.soccer.ReadTrigger("gameTest.txt")

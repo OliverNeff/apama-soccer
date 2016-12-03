@@ -11,10 +11,12 @@ package saep.soccer;
 monitor ReadFromFile {
 	
 	ReadTrigger rt;
+	integer counter := 0;
 	
 	action onload() {
 		on all ReadTrigger():rt {
 			StartReadOperations(rt);
+			print "start trigger";
 		}
 	}
 	
@@ -23,13 +25,16 @@ monitor ReadFromFile {
 		ofr.transportName := "JMultiFileTransport";
 		ofr.requestId := integer.getUnique();
 		ofr.codec := "JCSVCodec";
-		ofr.filename := "" + rt.filename; // Provide the location of your file that has to be read. Format: "C:\\Userc\\XXX\\Downloads\\")
-		ofr.payload["seperator"] := ",";
+		ofr.filename := "C:\\Projekte\\APAMA\\Git\\files\\" + rt.filename; // Provide the location of your file that has to be read. Format: "C:\\Userc\\XXX\\Downloads\\")
+		ofr.payload["separator"] := ",";
 		ofr.linesInHeader := 0;
 		emit ofr to "FILE";
 		
+		print "Initialize trigger with filename: " + ofr.filename; 
+		
 		com.apama.file.FileHandle fhandle := new com.apama.file.FileHandle;
 		on com.apama.file.FileHandle(requestId=ofr.requestId):fhandle {
+			print "Call file handle";
 			ReadFile(fhandle, rt);
 		}
 		
@@ -46,7 +51,18 @@ monitor ReadFromFile {
 		
 		//Part 2: Listening for the FileLine event
 		com.apama.file.FileLine fdata := new com.apama.file.FileLine;
-		
+		on com.apama.file.FileLine(sessionId = rl.sessionId):fdata {
+			
+			// generting events, that any active listener can receive
+			//route Dataset(/*TODO*/);
+			
+			// we are optionally creating a counter to stop reading from file after 1000 lines and close it
+			if (counter = 1000) 
+				then  {
+				// call the CloseTheFile-action, when counter reaches 1000
+				CloseTheFile(fdata, rt);
+			}
+			
 			// print a Dataset
 			print fdata.data.toString();
 			
@@ -55,5 +71,10 @@ monitor ReadFromFile {
 			
 			// To read more lines, call it again:
 			ReadFile(fhandle, rt);
+		}
+	}
+	
+	action CloseTheFile(com.apama.file.FileLine dfata, ReadTrigger rt) {
+		
 	}
 }
