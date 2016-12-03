@@ -9,5 +9,20 @@
 		<catalog path="catalogs/apama-soccer functions" type="function"/>
 	</catalogs>
 	<bundles>
+		<bundle file="File.bnd" origin-path="" origin="ADAPTER_CATALOG">
+			<instance name="FileAdapter"/>
+			<config-files>
+				<file name="..\..\config/File.xml.dist" timestamp="1480722660282"/>
+			</config-files>
+			<bundle-instance-files>
+			</bundle-instance-files>
+			<static-files>
+				<file name="..\..\config/File-static.xml" timestamp="1480722660284"/>
+			</static-files>
+			<dashboard-files>
+			</dashboard-files>
+			<evt-files>
+			</evt-files>
+		</bundle>
 	</bundles>
 </apama-project>

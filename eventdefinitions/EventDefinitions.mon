@@ -1,0 +1,13 @@
+//*****************************************************************************
+// Title:         ReadTrigger
+// Description:   ReadTrigger description
+// Dependencies:  None
+// Author:        olineff
+//
+//*****************************************************************************
+
+package saep.soccer;
+
+event ReadTrigger {
+	string filename;
+}

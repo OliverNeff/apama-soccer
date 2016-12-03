@@ -1,0 +1,59 @@
+//*****************************************************************************
+// Title:         FileReader
+// Description:   FileReader description
+// Dependencies:  None
+// Author:        olineff
+//
+//*****************************************************************************
+
+package saep.soccer;
+
+monitor ReadFromFile {
+	
+	ReadTrigger rt;
+	
+	action onload() {
+		on all ReadTrigger():rt {
+			StartReadOperations(rt);
+		}
+	}
+	
+	action StartReadOperations(ReadTrigger rt) {
+		com.apama.file.OpenFileForReading ofr := new com.apama.file.OpenFileForReading;
+		ofr.transportName := "JMultiFileTransport";
+		ofr.requestId := integer.getUnique();
+		ofr.codec := "JCSVCodec";
+		ofr.filename := "" + rt.filename; // Provide the location of your file that has to be read. Format: "C:\\Userc\\XXX\\Downloads\\")
+		ofr.payload["seperator"] := ",";
+		ofr.linesInHeader := 0;
+		emit ofr to "FILE";
+		
+		com.apama.file.FileHandle fhandle := new com.apama.file.FileHandle;
+		on com.apama.file.FileHandle(requestId=ofr.requestId):fhandle {
+			ReadFile(fhandle, rt);
+		}
+		
+	}
+	
+	action ReadFile(com.apama.file.FileHandle fhandle, ReadTrigger rt) {
+		// Part 1: Emitting the ReadLines event
+		com.apama.file.ReadLines rl := new com.apama.file.ReadLines;
+		rl.transportName := "JMultiFileTransport";
+		rl.requestId := integer.getUnique();
+		rl.sessionId := fhandle.sessionId;
+		rl.numberOfLines := 1;
+		emit rl to "FILE";
+		
+		//Part 2: Listening for the FileLine event
+		com.apama.file.FileLine fdata := new com.apama.file.FileLine;
+		
+			// print a Dataset
+			print fdata.data.toString();
+			
+			// acces to a specific data fiel:
+			print "SensorId: " + fdata.data[0];
+			
+			// To read more lines, call it again:
+			ReadFile(fhandle, rt);
+	}
+}
