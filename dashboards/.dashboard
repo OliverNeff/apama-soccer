@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-<comment>Created : Sun Dec 04 17:17:54 CET 2016</comment>
-<entry key="apama.rtv.usePanel">false</entry>
-<entry key="apama.rtv.main">dashboard.rtv</entry>
-<entry key="apama.rtv.name">Soccer</entry>
-</properties>

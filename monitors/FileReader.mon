@@ -2,94 +2,79 @@
 // Title:         FileReader
 // Description:   FileReader description
 // Dependencies:  None
-// Author:        Bernd
+// Author:        olineff
 //
 //*****************************************************************************
 
-package saep.Soccer;
-
-// TODO: Monitors and event definitions here
-
+package saep.soccer;
 
 monitor ReadFromFile {
+	
 	ReadTrigger rt;
 	integer counter := 0;
-
-	action onload(){
+	
+	action onload() {
 		on all ReadTrigger():rt {
 			StartReadOperations(rt);
+			print "start trigger";
 		}
 	}
-
+	
 	action StartReadOperations(ReadTrigger rt) {
-
 		com.apama.file.OpenFileForReading ofr := new com.apama.file.OpenFileForReading;
 		ofr.transportName := "JMultiFileTransport";
 		ofr.requestId := integer.getUnique();
 		ofr.codec := "JCSVCodec";
-		ofr.filename := "D:\\" + rt.filename;
+		ofr.filename := "C:\\Projekte\\APAMA\\Git\\files\\" + rt.filename; // Provide the location of your file that has to be read. Format: "C:\\Userc\\XXX\\Downloads\\")
 		ofr.payload["separator"] := ",";
 		ofr.linesInHeader := 0;
 		emit ofr to "FILE";
-
-		com.apama.file.FileHandle fhandle := new com.apama.file.FileHandle;
-		on com.apama.file.FileHandle(requestId=ofr.requestId):fhandle{
-			ReadFile(fhandle, rt);
 		
+		print "Initialize trigger with filename: " + ofr.filename; 
+		
+		com.apama.file.FileHandle fhandle := new com.apama.file.FileHandle;
+		on com.apama.file.FileHandle(requestId=ofr.requestId):fhandle {
+			print "Call file handle";
+			ReadFile(fhandle, rt);
 		}
+		
 	}
 	
-	action ReadFile(com.apama.file.FileHandle fhandle, ReadTrigger rt){
-
+	action ReadFile(com.apama.file.FileHandle fhandle, ReadTrigger rt) {
+		// Part 1: Emitting the ReadLines event
 		com.apama.file.ReadLines rl := new com.apama.file.ReadLines;
 		rl.transportName := "JMultiFileTransport";
 		rl.requestId := integer.getUnique();
 		rl.sessionId := fhandle.sessionId;
 		rl.numberOfLines := 1;
 		emit rl to "FILE";
-
+		
+		//Part 2: Listening for the FileLine event
 		com.apama.file.FileLine fdata := new com.apama.file.FileLine;
-		on com.apama.file.FileLine(sessionId=rl.sessionId):fdata {
-
-			route Dataset(fdata.data[0].toInteger(), fdata.data[1].toInteger(), fdata.data[2].toInteger(), fdata.data[3].toInteger(), fdata.data[4].toInteger(), fdata.data[5].toInteger());
-
-			counter := counter + 1;
-			if (counter = 100)
-				then {
-					CloseTheFile(fdata,rt);
+		on com.apama.file.FileLine(sessionId = rl.sessionId):fdata {
+			
+			// generting events, that any active listener can receive
+			//route Dataset(/*TODO*/);
+			
+			// we are optionally creating a counter to stop reading from file after 1000 lines and close it
+			if (counter = 1000) 
+				then  {
+				// call the CloseTheFile-action, when counter reaches 1000
+				CloseTheFile(fdata, rt);
 			}
-
-			//print fdata.data.toString();
-			//print "SensorId: " + fdata.data[0];
-			ReadFile(fhandle, rt); // to read more lines, call again
+			
+			// print a Dataset
+			print fdata.data.toString();
+			
+			// acces to a specific data fiel:
+			print "SensorId: " + fdata.data[0];
+			
+			// To read more lines, call it again:
+			ReadFile(fhandle, rt);
 		}
-
 	}
-
-	action CloseTheFile(com.apama.file.FileLine fdata, ReadTrigger rt){
-		com.apama.file.CloseFile clf := new com.apama.file.CloseFile;
-		clf.transportName := "JMultiFileTransport";
-		clf.requestId := integer.getUnique();
-		clf.sessionId := fdata.sessionId;
-		emit clf to "FILE";
 	
-		com.apama.file.FileClosed fc := new com.apama.file.FileClosed;
-		on com.apama.file.FileClosed(requestId = clf.requestId):fc{
-			print fc.toString();
-			print "File " + rt.filename + "has been closed.";
-		}
-	}
-
-}
-
-
-
-monitor ExampleListener {
-	Dataset ds;
-	action onload(){
-		on all Dataset(sid=67):ds {
-			print "sid=" + ds.sid.toString() + " belongs to BenMueller";
-		}
+	action CloseTheFile(com.apama.file.FileLine dfata, ReadTrigger rt) {
+		
 	}
 }
-
