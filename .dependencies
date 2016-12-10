@@ -5,19 +5,45 @@
 	</dependency>
 	<catalogs>
 		<catalog path="catalogs/Generated scenario blocks" type="block"/>
-		<catalog path="catalogs/apama-soccer blocks" type="block"/>
-		<catalog path="catalogs/apama-soccer functions" type="function"/>
+		<catalog path="catalogs/Soccer blocks" type="block"/>
+		<catalog path="catalogs/Soccer functions" type="function"/>
 	</catalogs>
 	<bundles>
-		<bundle file="File.bnd" origin-path="" origin="ADAPTER_CATALOG">
-			<instance name="FileAdapter"/>
+		<bundle file="ScenarioService.bnd" origin-path="" origin="PRODUCT_CATALOG">
+			<instance name=""/>
 			<config-files>
-				<file name="..\..\config/File.xml.dist" timestamp="1480722660282"/>
 			</config-files>
 			<bundle-instance-files>
 			</bundle-instance-files>
 			<static-files>
-				<file name="..\..\config/File-static.xml" timestamp="1480722660284"/>
+			</static-files>
+			<dashboard-files>
+			</dashboard-files>
+			<evt-files>
+			</evt-files>
+		</bundle>
+		<bundle file="File.bnd" origin-path="" origin="ADAPTER_CATALOG">
+			<instance name="instance 1"/>
+			<config-files>
+				<file name="..\..\config/File.xml.dist" timestamp="1480712772000"/>
+			</config-files>
+			<bundle-instance-files>
+			</bundle-instance-files>
+			<static-files>
+				<file name="..\..\config/File-static.xml" timestamp="1480712772000"/>
+			</static-files>
+			<dashboard-files>
+			</dashboard-files>
+			<evt-files>
+			</evt-files>
+		</bundle>
+		<bundle file="DataViewService.bnd" origin-path="" origin="PRODUCT_CATALOG">
+			<instance name=""/>
+			<config-files>
+			</config-files>
+			<bundle-instance-files>
+			</bundle-instance-files>
+			<static-files>
 			</static-files>
 			<dashboard-files>
 			</dashboard-files>
