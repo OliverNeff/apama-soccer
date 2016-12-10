@@ -1,0 +1,24 @@
+//*****************************************************************************
+// Title:         Eventdefinition
+// Description:   Eventdefinition description
+// Dependencies:  None
+// Author:        Bernd
+//
+//*****************************************************************************
+
+
+package saep.Soccer;
+
+
+event ReadTrigger {
+	string filename;
+}
+
+event Dataset {
+	integer sid;
+	integer ts;
+	integer x;
+	integer y;
+	integer z;
+	integer v;
+}
