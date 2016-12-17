@@ -1,0 +1,95 @@
+//*****************************************************************************
+// Title:         DataView
+// Description:   DataView description
+// Dependencies:  None
+// Author:        Oliver Neff
+//
+//*****************************************************************************
+
+package saep.soccer;
+
+using com.apama.dataview.DataViewAddDefinition;
+using com.apama.dataview.DataViewException;
+using com.apama.dataview.DataViewDefinition;
+using com.apama.dataview.DataViewAddItem;
+using com.apama.dataview.DataViewItem;
+using com.apama.dataview.DataViewUpdateItem;
+using com.apama.dataview.DataViewItemException;
+
+monitor DataView {
+	
+	string DataViewName := "runningDataView";
+	
+	action onload() {
+		
+		// 1. Create a data view definition
+		DataViewAddDefinition add := new DataViewAddDefinition;
+		add.dvName := DataViewName;
+		add.dvDisplayName := "Datasets";
+		add.fieldNames:= ["sid", "ts", "x", "y", "z", "v"];
+		add.fieldTypes := ["integer", "integer", "integer", "integer", "integer", "integer"];
+		add.keyFields := ["sid"];
+		add.msgId := integer.getUnique().toString();
+		
+		route add;
+	
+	
+	
+	DataViewException dvException;
+	
+	// if a DataViewException event is found, handle the error
+	on DataViewException(msgId = add.msgId):dvException
+	   and not DataViewDefinition(msgId=add.msgId) {
+		log "Exception " + dvException.message;
+	}
+	
+	// if a DataViewDefinition event is found, continoue by creating an associated data view item
+	on DataViewDefinition(msgId=add.msgId){
+		Dataset ds;
+		on all Dataset():ds {
+			
+			DataViewAddItem item := new DataViewAddItem;
+			item.dvName := DataViewName;
+			item.owner := "*";
+			item.fieldValues := [ds.sid.toString(),ds.ts.toString(),ds.x.toString(),ds.y.toString(),ds.z.toString(),ds.v.toString()];
+			item.timeStamp := currentTime;
+			item.msgId := integer.getUnique().toString();
+
+			route item;
+			DataViewItemException itemExp;
+			on DataViewItemException(msgId=item.msgId):itemExp
+			   and not DataViewItem(msgId=item.msgId){
+				log "Exception: " + itemExp.message;
+			}
+
+			DataViewItem added;
+			on DataViewItem(msgId=item.msgId):added {
+				log ("DataViewItem: " + added.dvItemId.toString());
+				spawn updateItem(ds.sid);
+			}
+
+		}
+	}
+}
+
+	
+	action updateItem(integer sidIn){
+		Dataset data;
+		on all Dataset(sid=sidIn):data {
+			DataViewUpdateItem itemUpdate := new DataViewUpdateItem;
+			itemUpdate.dvName := DataViewName;
+			itemUpdate.fieldValues := [data.sid.toString(),data.ts.toString(),data.x.toString(),data.y.toString(),data.z.toString(),data.v.toString()];
+			itemUpdate.timeStamp := currentTime;
+			itemUpdate.dvItemId := -1;
+			itemUpdate.msgId := integer.getUnique().toString();
+
+			route itemUpdate;
+
+			DataViewItemException itemExp;
+			on DataViewItemException(msgId=itemUpdate.msgId):itemExp {
+				log "Exception: " + itemExp.message;
+			}
+		}
+		
+	}
+}

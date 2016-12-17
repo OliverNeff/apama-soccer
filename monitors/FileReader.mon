@@ -74,7 +74,27 @@ monitor ReadFromFile {
 		}
 	}
 	
-	action CloseTheFile(com.apama.file.FileLine dfata, ReadTrigger rt) {
-		
+	action CloseTheFile(com.apama.file.FileLine fdata, ReadTrigger rt){
+		com.apama.file.CloseFile clf := new com.apama.file.CloseFile;
+		clf.transportName := "JMultiFileTransport";
+		clf.requestId := integer.getUnique();
+		clf.sessionId := fdata.sessionId;
+		emit clf to "FILE";
+	
+		com.apama.file.FileClosed fc := new com.apama.file.FileClosed;
+		on com.apama.file.FileClosed(requestId = clf.requestId):fc{
+			print fc.toString();
+			print "File " + rt.filename + "has been closed.";
+		}
 	}
 }
+
+monitor ExampleListener {
+	Dataset ds;
+	action onload(){
+		on all Dataset(sid=67):ds {
+			print "sid=" + ds.sid.toString() + " belongs to BenMueller";
+		}
+	}
+}
+

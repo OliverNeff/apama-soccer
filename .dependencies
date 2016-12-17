@@ -12,12 +12,38 @@
 		<bundle file="File.bnd" origin-path="" origin="ADAPTER_CATALOG">
 			<instance name="FileAdapter"/>
 			<config-files>
-				<file name="..\..\config/File.xml.dist" timestamp="1480722660282"/>
+				<file name="..\..\config/File.xml.dist" timestamp="1479573762812"/>
 			</config-files>
 			<bundle-instance-files>
 			</bundle-instance-files>
 			<static-files>
-				<file name="..\..\config/File-static.xml" timestamp="1480722660284"/>
+				<file name="..\..\config/File-static.xml" timestamp="1479573762816"/>
+			</static-files>
+			<dashboard-files>
+			</dashboard-files>
+			<evt-files>
+			</evt-files>
+		</bundle>
+		<bundle file="ScenarioService.bnd" origin-path="" origin="PRODUCT_CATALOG">
+			<instance name=""/>
+			<config-files>
+			</config-files>
+			<bundle-instance-files>
+			</bundle-instance-files>
+			<static-files>
+			</static-files>
+			<dashboard-files>
+			</dashboard-files>
+			<evt-files>
+			</evt-files>
+		</bundle>
+		<bundle file="DataViewService.bnd" origin-path="" origin="PRODUCT_CATALOG">
+			<instance name=""/>
+			<config-files>
+			</config-files>
+			<bundle-instance-files>
+			</bundle-instance-files>
+			<static-files>
 			</static-files>
 			<dashboard-files>
 			</dashboard-files>

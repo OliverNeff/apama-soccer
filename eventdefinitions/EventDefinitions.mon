@@ -11,3 +11,12 @@ package saep.soccer;
 event ReadTrigger {
 	string filename;
 }
+
+event Dataset {
+	integer sid;
+	integer ts;
+	integer x;
+	integer y;
+	integer z;
+	integer v;
+}
