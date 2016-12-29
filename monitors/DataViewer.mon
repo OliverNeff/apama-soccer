@@ -53,8 +53,8 @@ monitor DataViewer {
 		DataViewAddDefinition add := new DataViewAddDefinition;
 		add.dvName := DataViewName;
 		add.dvDisplayName := "Datasets";
-		add.fieldNames := ["sid", "ts", "x", "y", "z", "v"];
-		add.fieldTypes := ["integer", "integer", "integer", "integer", "integer", "integer"];
+		add.fieldNames := ["name","sid", "ts", "x", "y", "z", "v"];
+		add.fieldTypes := ["string","integer", "integer", "integer", "integer", "integer", "integer"];
 		add.keyFields := ["sid"];
 		add.msgId := integer.getUnique().toString();
 
@@ -74,7 +74,7 @@ monitor DataViewer {
 				DataViewAddItem item := new DataViewAddItem;
 				item.dvName := DataViewName;
 				item.owner := "*";
-				item.fieldValues := [ds.sid.toString(),ds.ts.toString(),ds.x.toString(),ds.y.toString(),ds.z.toString(),ds.v.toString()];
+				item.fieldValues := [ds.name,ds.sid.toString(),ds.ts.toString(),ds.x.toString(),ds.y.toString(),ds.z.toString(),ds.v.toString()];
 				item.timeStamp := currentTime;
 				item.msgId := integer.getUnique().toString();
 
@@ -100,7 +100,7 @@ monitor DataViewer {
 		on all Dataset(sid=sidIn):data {
 			DataViewUpdateItem itemUpdate := new DataViewUpdateItem;
 			itemUpdate.dvName := DataViewName;
-			itemUpdate.fieldValues := [data.sid.toString(),data.ts.toString(),data.x.toString(),data.y.toString(),data.z.toString(),data.v.toString()];
+			itemUpdate.fieldValues := [data.name,data.sid.toString(),data.ts.toString(),data.x.toString(),data.y.toString(),data.z.toString(),data.v.toString()];
 			itemUpdate.timeStamp := currentTime;
 			itemUpdate.dvItemId := -1;
 			itemUpdate.msgId := integer.getUnique().toString();

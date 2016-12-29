@@ -1,0 +1,24 @@
+//*****************************************************************************
+// Title:         SprintDistance
+// Description:   SprintDistance description
+// Dependencies:  None
+// Author:        olineff
+//
+//*****************************************************************************
+
+package saep.Soccer;
+query SprintDistance {	
+	parameters {
+		float period;
+ 	}
+		
+	
+	inputs  {
+		Dataset() within period;
+	}
+
+	find Dataset:d1 -> Dataset:d2
+		where d1.name = d2.name {
+ 			log "Suspicious withdrawal: " + d1.toString() at INFO;
+ 		}
+}

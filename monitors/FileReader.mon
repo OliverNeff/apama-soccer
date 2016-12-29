@@ -114,7 +114,7 @@ monitor ReadFromFile {
 
 			//print fdata.data.toString();
 			//print "SensorId: " + fdata.data[0];
-			print getNames.getOrDefault(fdata.data[0].toInteger());
+			//print getNames.getOrDefault(fdata.data[0].toInteger());
 			ReadFile(fhandle, rt); // to read more lines, call again
 		}
 

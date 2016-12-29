@@ -23,11 +23,12 @@
 	<localvar name="__$apama_lang" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_theme" initValue="" dataType="scalar"/>
 	<object name="N1" class="obj_table02"
-		y="39.3125" x="41.6875"
+		y="31.925" x="46.75"
 		dd="$. . "
 		filterProperties=""
-		objWidth="40.0"
-		objHeight="16.0"
+		objWidth="63.875"
+		bgEdgeWidth="1.0"
+		objHeight="39.25"
 		sortAscendingFlag="1"
 		label="Table (HTML5)"
 		labelTextColor="16"
@@ -79,6 +80,8 @@
 		tabIndex="0"
 		labelTextAlignY="3"
 		labelMinTabWidth="128"
+		bgRoundness="12"
+		bgGradientColor2="0"
 		cellBgStripeContrast="1"
 		textForNaN=""
 		rightClickActionFlag="0"
@@ -89,6 +92,6 @@
 		webGridFlag="1"
 		webGridRowsPerPage="200"
 		webGridHoverColor="-1">
-		<vardef varname="valueTable" dsstring="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaData&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;attachType&gt;&lt;![CDATA[dvCurrent]]&gt;&lt;/attachType&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;scenario&gt;&lt;![CDATA[DV_runningDataView]]&gt;&lt;/scenario&gt;&lt;interval&gt;&lt;![CDATA[60]]&gt;&lt;/interval&gt;&lt;intervalUnit&gt;&lt;![CDATA[seconds]]&gt;&lt;/intervalUnit&gt;&lt;variables&gt;&lt;var&gt;&lt;![CDATA[sid]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[ts]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[x]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[y]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[z]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[v]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[apama.instanceId]]&gt;&lt;/var&gt;&lt;/variables&gt;&lt;filters /&gt;&lt;/ApamaData&gt;"/>
+		<vardef varname="valueTable" dsstring="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaData&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;attachType&gt;&lt;![CDATA[dvCurrent]]&gt;&lt;/attachType&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;scenario&gt;&lt;![CDATA[DV_runningDataView]]&gt;&lt;/scenario&gt;&lt;interval&gt;&lt;![CDATA[60]]&gt;&lt;/interval&gt;&lt;intervalUnit&gt;&lt;![CDATA[seconds]]&gt;&lt;/intervalUnit&gt;&lt;variables&gt;&lt;var&gt;&lt;![CDATA[name]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[sid]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[ts]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[x]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[y]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[z]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[v]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[apama.instanceId]]&gt;&lt;/var&gt;&lt;/variables&gt;&lt;filters /&gt;&lt;/ApamaData&gt;"/>
 	</object>
 </rtview>
