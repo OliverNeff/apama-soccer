@@ -14,8 +14,61 @@ package saep.Soccer;
 monitor ReadFromFile {
 	ReadTrigger rt;
 	integer counter := 0;
-
+	
+	dictionary<integer,string> getNames := new dictionary<integer,string>;	
+	
 	action onload(){
+		// Fill dictionary with names of game. 
+		// TEAM A
+		getNames.add(13,"Nick Gertje");
+		getNames.add(14,"Nick Gertje");
+		
+		getNames.add(47,"Dennis Dotterweich");
+		getNames.add(16,"Dennis Dotterweich");
+		
+		getNames.add(49,"Niklas Waelzlein");
+		getNames.add(88,"Niklas Waelzlein");
+		
+		getNames.add(19,"Wili Sommer");
+		getNames.add(52,"Wili Sommer");
+		
+		getNames.add(53,"Philipp Harlass");
+		getNames.add(54,"Philipp Harlass");
+		
+		getNames.add(23,"Roman Hartleb");
+		getNames.add(24,"Roman Hartleb");
+		
+		getNames.add(57,"Erik Engelhardt");
+		getNames.add(58,"Erik Engelhardt");
+		
+		getNames.add(59,"Sandro Schneider");
+		getNames.add(28,"Sandro Schneider");
+		
+		// TEAM B
+		getNames.add(61,"Leon Krapf");
+		getNames.add(62,"Leon Krapf");
+		
+		getNames.add(63,"Kevin Baer");
+		getNames.add(64,"Kevin Baer");
+		
+		getNames.add(65,"Luca Ziegler");
+		getNames.add(66,"Luca Ziegler");
+		
+		getNames.add(67,"Ben Mueller");
+		getNames.add(68,"Ben Mueller");
+		
+		getNames.add(69,"Vale Reitstetter");
+		getNames.add(38,"Vale Reitstetter");
+		
+		getNames.add(71,"Christopher Lee");
+		getNames.add(40,"Christopher Lee");
+		
+		getNames.add(73,"Leon Heinze");
+		getNames.add(74,"Leon Heinze");
+		
+		getNames.add(75,"Leo Langhans");
+		getNames.add(44,"Leo Langhans");
+		
 		on all ReadTrigger():rt {
 			StartReadOperations(rt);
 		}
@@ -27,7 +80,7 @@ monitor ReadFromFile {
 		ofr.transportName := "JMultiFileTransport";
 		ofr.requestId := integer.getUnique();
 		ofr.codec := "JCSVCodec";
-		ofr.filename := "D:\\" + rt.filename;
+		ofr.filename := "C:\\Projekte\\APAMA\\Git\\files\\" + rt.filename;
 		ofr.payload["separator"] := ",";
 		ofr.linesInHeader := 0;
 		emit ofr to "FILE";
@@ -51,8 +104,8 @@ monitor ReadFromFile {
 		com.apama.file.FileLine fdata := new com.apama.file.FileLine;
 		on com.apama.file.FileLine(sessionId=rl.sessionId):fdata {
 
-			route Dataset(fdata.data[0].toInteger(), fdata.data[1].toInteger(), fdata.data[2].toInteger(), fdata.data[3].toInteger(), fdata.data[4].toInteger(), fdata.data[5].toInteger());
-
+			route Dataset(getNames.getOrDefault(fdata.data[0].toInteger()) ,fdata.data[0].toInteger(), fdata.data[1].toInteger(), fdata.data[2].toInteger(), fdata.data[3].toInteger(), fdata.data[4].toInteger(), fdata.data[5].toInteger()); 
+			
 			counter := counter + 1;
 			if (counter = 100)
 				then {
@@ -61,6 +114,7 @@ monitor ReadFromFile {
 
 			//print fdata.data.toString();
 			//print "SensorId: " + fdata.data[0];
+			print getNames.getOrDefault(fdata.data[0].toInteger());
 			ReadFile(fhandle, rt); // to read more lines, call again
 		}
 
