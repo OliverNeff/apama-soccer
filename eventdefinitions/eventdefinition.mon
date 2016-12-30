@@ -42,10 +42,22 @@ event ReadTrigger {
 
 event Dataset {
 	string name;
+	string bodypart;
 	integer sid;
 	integer ts;
 	integer x;
 	integer y;
 	integer z;
 	integer v;
+}
+
+event aggregatedDataset {
+	string name;
+	float sprintDistance;
+}
+
+// Metadata helper object for routing in Dataset. 
+event Metadata {
+	string name;
+	string bodypart;
 }

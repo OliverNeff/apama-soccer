@@ -1,0 +1,20 @@
+//*****************************************************************************
+// Title:         SprintDistanceCalculator
+// Description:   SprintDistanceCalculator description
+// Dependencies:  None
+// Author:        olineff
+//
+//*****************************************************************************
+
+package saep.Soccer;
+
+// Sendet alle eingehenden Datasets zu den Queries um die gewonnen Informationen, dann in ein anderes Objekt zu füllen. 
+monitor DatasetQueryMonitor {
+	action onload() {
+		Dataset dataset;
+		on all Dataset() : dataset {
+			
+			send dataset to "com.apama.queries";
+		}
+	}
+}
