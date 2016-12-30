@@ -51,6 +51,12 @@ event Dataset {
 	integer v;
 }
 
+event AvgDataset {
+	string name;
+	integer x;
+	integer y;
+}
+
 event aggregatedDataset {
 	string name;
 	float sprintDistance;

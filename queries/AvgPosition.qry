@@ -1,26 +1,22 @@
 //*****************************************************************************
-// Title:         SprintDistance
-// Description:   SprintDistance description
+// Title:         AvgPosition
+// Description:   AvgPosition description
 // Dependencies:  None
 // Author:        olineff
 //
 //*****************************************************************************
 
 package saep.Soccer;
-query SprintDistance {	
-	// Keine Ahnung wie man Parameter setzt? 
-	//parameters {
-	//	float period;
- 	//}
-		
-	
+
+query AvgPosition {	
 	inputs  {
-		Dataset() within 1 min;
+		.saep.Soccer.Dataset() retain 2;
 	}
+
 
 	find Dataset:d1 -> Dataset:d2
 		// Get left and right leg of an player. 
 		where d1.name = d2.name and d1.bodypart != d2.bodypart {
- 			log "Suspicious withdrawal: " + d1.toString() at INFO;
+ 			send AvgDataset(d2.name, (d1.x + d2.x)/2 , (d1.y + d2.y)/2) to "";
  		}
 }
