@@ -9,4 +9,4 @@
 
 //saep.Soccer.ReadTrigger("full-game-small")
 
-saep.Soccer.ReadTrigger("gameTest.txt")
+saep.Soccer.ReadTrigger("full-game-time")

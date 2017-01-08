@@ -14,27 +14,27 @@
 		rtvRefreshInterval="">
 	</model>
 	<localvar name="__$instanceState" initValue="" dataType="scalar"/>
-	<localvar name="__$apama_lang" initValue="" dataType="scalar"/>
 	<localvar name="__$instanceId" initValue="" dataType="scalar"/>
 	<localvar name="__$timestamp" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_user" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_server_host" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_server_port" initValue="" dataType="scalar"/>
-	<localvar name="__$apama_theme" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_roles" initValue="" dataType="scalar"/>
 	<localvar name="__$duration" initValue="" dataType="table"/>
+	<localvar name="__$apama_lang" initValue="" dataType="scalar"/>
+	<localvar name="__$apama_theme" initValue="" dataType="scalar"/>
 	<object name="N1" class="obj_table02"
-		y="49.3625" x="14.5"
+		y="48.7375" x="14.5"
 		dd="$. . "
 		filterProperties=""
 		objWidth="28.875"
 		bgEdgeWidth="1.0"
-		objHeight="37.125"
-		sortAscendingFlag="0"
+		objHeight="38.375"
+		sortAscendingFlag="1"
 		label="Player Position"
 		labelTextColor="16"
 		labelTextHeight="1.25"
-		showSortIconFlag="1"
+		showSortIconFlag="0"
 		autoResizeFlag="1"
 		rowLabelMode="0"
 		sortColumnName="name"
@@ -60,7 +60,7 @@
 		cellTextFont="1"
 		columnHeaderTextSize="-1"
 		columnHeaderTextFont="1"
-		scrollbarMode="1"
+		scrollbarMode="0"
 		tableBgColor="0"
 		columnsToHide="apama.instanceId"
 		multiSelectFlag="0"
@@ -133,7 +133,7 @@
 		objHeight="33.375"
 		borderPixels="8"
 		bgVisFlag="0"
-		label="XY Graph"
+		label="Game Overview"
 		labelTextColor="16"
 		labelTextHeight="1.25"
 		labelTextFont="7"
@@ -142,9 +142,10 @@
 		gridColor="16"
 		rowSeriesFlag="0"
 		outlineColor="7"
-		xValueDivisor="0.0"
-		yValueDivisor="0.0"
-		mouseOverFlag="0"
+		xValueDivisor="1000.0"
+		yValueDivisor="1000.0"
+		traceProperties=",0,1,1,7"
+		mouseOverFlag="1"
 		yAxisFlag="1"
 		yAxisMajorDivisions="2"
 		yAxisMinorDivisions="2"
@@ -167,7 +168,7 @@
 		legendWidthPercent="30.0"
 		legendBgColor="0"
 		legendValueMinSpace="10"
-		legendValueVisFlag="0"
+		legendValueVisFlag="1"
 		drillDownColumnSubs="$instanceId:apama.instanceId $instanceState:apama.instanceStatus $timestamp:apama.timestamp"
 		valueHighAlarmEnabledFlag="0"
 		valueHighWarningEnabledFlag="0"
@@ -179,11 +180,12 @@
 		scrollbarSize="-1"
 		zoomEnabledFlag="0"
 		visFlag="1"
-		drillDownSelectMode="1"
+		drillDownSelectMode="0"
 		gridBgGradientMode="1"
 		legendBgGradientMode="0"
 		traceFillStyle="0"
-		columnDisplayNames=""
+		columnDisplayNames="y:position "
+		labelColumnName=""
 		labelColumnFormat=""
 		markScaleMode="0"
 		markDefaultSize="6"

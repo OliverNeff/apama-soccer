@@ -10,7 +10,7 @@ package saep.Soccer;
 
 query AvgPosition {	
 	inputs  {
-		.saep.Soccer.Dataset() within 5 min;
+		.saep.Soccer.Dataset() within 2 sec;
 	}
 
 

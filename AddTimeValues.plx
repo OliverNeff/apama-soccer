@@ -13,11 +13,13 @@ open(my $fh_in, '<:encoding(UTF-8)', $read)
 open(my $fh_out, '>:encoding(UTF-8)', $write)
   or die "Could not open file '$write' $!";
   
-print $fh_out "&FLUSHING(8)\n";
+#print $fh_out "&FLUSHING(8)\n";
 while (my $row = <$fh_in>) {
   chomp $row;
-  print $fh_out "&TIME(10753.295594424116)\n";
+  #print $fh_out "&TIME(10753.295594424116)\n";
+    if ($count % 100 == 0) {
   print $fh_out $row . "\n";
+  }
   $count++;
   if ($count % 100000 == 0) {
 	print "Line $count reached.\n";
