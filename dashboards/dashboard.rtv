@@ -14,35 +14,36 @@
 		rtvRefreshInterval="">
 	</model>
 	<localvar name="__$instanceState" initValue="" dataType="scalar"/>
+	<localvar name="__$apama_lang" initValue="" dataType="scalar"/>
 	<localvar name="__$instanceId" initValue="" dataType="scalar"/>
 	<localvar name="__$timestamp" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_user" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_server_host" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_server_port" initValue="" dataType="scalar"/>
-	<localvar name="__$apama_roles" initValue="" dataType="scalar"/>
-	<localvar name="__$apama_lang" initValue="" dataType="scalar"/>
 	<localvar name="__$apama_theme" initValue="" dataType="scalar"/>
+	<localvar name="__$apama_roles" initValue="" dataType="scalar"/>
+	<localvar name="__$duration" initValue="" dataType="table"/>
 	<object name="N1" class="obj_table02"
-		y="11.05" x="47.375"
+		y="49.3625" x="14.5"
 		dd="$. . "
 		filterProperties=""
-		objWidth="63.875"
+		objWidth="28.875"
 		bgEdgeWidth="1.0"
-		objHeight="39.25"
-		sortAscendingFlag="1"
-		label="Table (HTML5)"
+		objHeight="37.125"
+		sortAscendingFlag="0"
+		label="Player Position"
 		labelTextColor="16"
 		labelTextHeight="1.25"
 		showSortIconFlag="1"
 		autoResizeFlag="1"
 		rowLabelMode="0"
-		sortColumnName=""
+		sortColumnName="name"
 		labelTextFont="7"
 		labelTextAlignX="2"
 		gridHorizontalVisFlag="1"
 		gridVerticalVisFlag="1"
 		bgVisFlag="0"
-		columnProperties=""
+		columnProperties="name:106 x:56 y:48 "
 		maxNumberOfRows="100"
 		insertNewRowsAtTopFlag="1"
 		insertNewRowsFlag="0"
@@ -92,13 +93,44 @@
 		webGridFlag="1"
 		webGridRowsPerPage="200"
 		webGridHoverColor="-1">
-		<vardef varname="valueTable" dsstring="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaData&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;attachType&gt;&lt;![CDATA[dvCurrent]]&gt;&lt;/attachType&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;scenario&gt;&lt;![CDATA[DV_runningDataView]]&gt;&lt;/scenario&gt;&lt;interval&gt;&lt;![CDATA[60]]&gt;&lt;/interval&gt;&lt;intervalUnit&gt;&lt;![CDATA[seconds]]&gt;&lt;/intervalUnit&gt;&lt;variables&gt;&lt;var&gt;&lt;![CDATA[name]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[sid]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[ts]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[x]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[y]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[z]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[v]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[apama.instanceId]]&gt;&lt;/var&gt;&lt;/variables&gt;&lt;filters /&gt;&lt;/ApamaData&gt;"/>
+		<vardef varname="valueTable" dsstring="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaData&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;attachType&gt;&lt;![CDATA[dvCurrent]]&gt;&lt;/attachType&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;scenario&gt;&lt;![CDATA[DV_runningDataView]]&gt;&lt;/scenario&gt;&lt;interval&gt;&lt;![CDATA[60]]&gt;&lt;/interval&gt;&lt;intervalUnit&gt;&lt;![CDATA[seconds]]&gt;&lt;/intervalUnit&gt;&lt;variables&gt;&lt;var&gt;&lt;![CDATA[name]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[x]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[y]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[apama.instanceId]]&gt;&lt;/var&gt;&lt;/variables&gt;&lt;filters /&gt;&lt;/ApamaData&gt;"/>
 	</object>
-	<object name="N4" class="obj_xygraph"
-		y="46.25" x="40.9125"
+	<object name="N6" class="obj_c1combobox"
+		y="62.875" x="83.25"
+		confirm="false"
+		objWidth="12.0"
+		objHeight="2.5"
+		actionCommand="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaCommand&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;command&gt;&lt;![CDATA[create]]&gt;&lt;/command&gt;&lt;scenario&gt;&lt;![CDATA[QRY_saep.Soccer.SprintDistance]]&gt;&lt;/scenario&gt;&lt;filters /&gt;&lt;parameters&gt;&lt;param&gt;&lt;name&gt;&lt;![CDATA[period]]&gt;&lt;/name&gt;&lt;value&gt;&lt;![CDATA[$duration]]&gt;&lt;/value&gt;&lt;/param&gt;&lt;/parameters&gt;&lt;/ApamaCommand&gt;"
+		enabledFlag="1"
+		valueTextFont="1"
+		valueTextSize="12"
+		listValues="60.0;320.0;1200.0;5400.0;"
+		textEntryEnabledFlag="0"
+		bgColor="-1"
+		selectedValue="60.0"
+		visFlag="1"
+		fgColor="-1"
+		tabIndex="0"
+		mouseOverText="">
+		<vardef varname="varToSet" dsstring="local __$duration"/>
+	</object>
+	<object name="N10" class="obj_text01"
+		y="65.7" x="82.975" scale="1.34322"
+		visFlag="1"
+		label="Period"
+		labelTextColor="16"
+		rotationAngle="0.0"
+		labelTextHeight="1.2"
+		labelTextFont="7"
+		labelTextAlignX="2"
+		labelTextAlignY="3"
+		webLabelFlag="1">
+	</object>
+	<object name="N13" class="obj_xygraph"
+		y="49.5" x="51.9"
 		dd="$. . "
-		objWidth="76.0"
-		objHeight="30.375"
+		objWidth="44.625"
+		objHeight="33.375"
 		borderPixels="8"
 		bgVisFlag="0"
 		label="XY Graph"
@@ -114,25 +146,24 @@
 		yValueDivisor="0.0"
 		mouseOverFlag="0"
 		yAxisFlag="1"
-		yAxisMultiRangeFlag="0"
 		yAxisMajorDivisions="2"
 		yAxisMinorDivisions="2"
 		yAxisMinLabelWidth="10"
 		yAxisLabelTextHeight="1.2"
 		yValueMin="-33960.0"
 		yValueMax="33965.0"
-		yAxisAutoScaleMode="1"
+		yAxisAutoScaleMode="0"
 		yAxisLabel=""
 		xAxisFlag="1"
 		xAxisMajorDivisions="2"
 		xAxisMinorDivisions="2"
 		xAxisLabelTextHeight="1.2"
 		xValueMin="-50.0"
-		xValueMax="52477.0"
-		xAxisAutoScaleMode="1"
+		xValueMax="52489.0"
+		xAxisAutoScaleMode="0"
 		xAxisAutoScaleRoundFlag="0"
 		xAxisLabel=""
-		legendVisFlag="1"
+		legendVisFlag="0"
 		legendWidthPercent="30.0"
 		legendBgColor="0"
 		legendValueMinSpace="10"
@@ -150,20 +181,17 @@
 		visFlag="1"
 		drillDownSelectMode="1"
 		gridBgGradientMode="1"
-		bgEdgeWidth="1.0"
 		legendBgGradientMode="0"
 		traceFillStyle="0"
 		columnDisplayNames=""
+		labelColumnFormat=""
 		markScaleMode="0"
 		markDefaultSize="6"
 		xAxisReverseFlag="0"
 		labelTextAlignY="3"
 		labelMinTabWidth="128"
-		bgRoundness="12"
-		bgGradientColor2="0"
 		gridBgGradientColor2="0"
 		legendBgGradientColor2="0">
-		<vardef varname="valueTable" dsstring="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaData&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;attachType&gt;&lt;![CDATA[dvCurrent]]&gt;&lt;/attachType&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;scenario&gt;&lt;![CDATA[DV_runningDataView]]&gt;&lt;/scenario&gt;&lt;interval&gt;&lt;![CDATA[60]]&gt;&lt;/interval&gt;&lt;intervalUnit&gt;&lt;![CDATA[seconds]]&gt;&lt;/intervalUnit&gt;&lt;variables&gt;&lt;var&gt;&lt;![CDATA[x]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[y]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[apama.instanceId]]&gt;&lt;/var&gt;&lt;/variables&gt;&lt;filters&gt;&lt;variable&gt;&lt;filterVariable&gt;&lt;![CDATA[sid]]&gt;&lt;/filterVariable&gt;&lt;filterOp&gt;&lt;![CDATA[eq]]&gt;&lt;/filterOp&gt;&lt;filterValue&gt;&lt;![CDATA[28]]&gt;&lt;/filterValue&gt;&lt;/variable&gt;&lt;/filters&gt;&lt;/ApamaData&gt;"/>
-		<vardef varname="labelColumnName" dsstring="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaData&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;attachType&gt;&lt;![CDATA[dvCurrent]]&gt;&lt;/attachType&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;scenario&gt;&lt;![CDATA[DV_runningDataView]]&gt;&lt;/scenario&gt;&lt;interval&gt;&lt;![CDATA[60]]&gt;&lt;/interval&gt;&lt;intervalUnit&gt;&lt;![CDATA[seconds]]&gt;&lt;/intervalUnit&gt;&lt;variables&gt;&lt;var&gt;&lt;![CDATA[name]]&gt;&lt;/var&gt;&lt;/variables&gt;&lt;filters /&gt;&lt;/ApamaData&gt;"/>
+		<vardef varname="valueTable" dsstring="Apama &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;ApamaData&gt;&lt;version&gt;&lt;![CDATA[5.0]]&gt;&lt;/version&gt;&lt;attachType&gt;&lt;![CDATA[dvCurrent]]&gt;&lt;/attachType&gt;&lt;rtvUser&gt;&lt;![CDATA[$rtvuser]]&gt;&lt;/rtvUser&gt;&lt;correlator&gt;&lt;![CDATA[default]]&gt;&lt;/correlator&gt;&lt;scenario&gt;&lt;![CDATA[DV_runningDataView]]&gt;&lt;/scenario&gt;&lt;interval&gt;&lt;![CDATA[60]]&gt;&lt;/interval&gt;&lt;intervalUnit&gt;&lt;![CDATA[seconds]]&gt;&lt;/intervalUnit&gt;&lt;variables&gt;&lt;var&gt;&lt;![CDATA[name]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[x]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[y]]&gt;&lt;/var&gt;&lt;var&gt;&lt;![CDATA[apama.instanceId]]&gt;&lt;/var&gt;&lt;/variables&gt;&lt;filters /&gt;&lt;/ApamaData&gt;"/>
 	</object>
 </rtview>

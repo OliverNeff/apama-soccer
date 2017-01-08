@@ -143,7 +143,7 @@ monitor ExampleListener {
 		on all Dataset(sid=67):ds {
 
 			
-			print "sid=" + ds.sid.toString() + " belongs to BenMueller";
+			//print "sid=" + ds.sid.toString() + " belongs to BenMueller";
 		}
 	}
 }

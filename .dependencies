@@ -22,21 +22,6 @@
 			<evt-files>
 			</evt-files>
 		</bundle>
-		<bundle file="File.bnd" origin-path="" origin="ADAPTER_CATALOG">
-			<instance name="instance 1"/>
-			<config-files>
-				<file name="..\..\config/File.xml.dist" timestamp="1480722660282"/>
-			</config-files>
-			<bundle-instance-files>
-			</bundle-instance-files>
-			<static-files>
-				<file name="..\..\config/File-static.xml" timestamp="1480722660284"/>
-			</static-files>
-			<dashboard-files>
-			</dashboard-files>
-			<evt-files>
-			</evt-files>
-		</bundle>
 		<bundle file="DataViewService.bnd" origin-path="" origin="PRODUCT_CATALOG">
 			<instance name=""/>
 			<config-files>
@@ -62,6 +47,21 @@
 			</dashboard-files>
 			<evt-files>
 				<file name="${APAMA_HOME}/monitors/query_support/AllQueriesInjected.evt" timestamp="1480722660222"/>
+			</evt-files>
+		</bundle>
+		<bundle file="File.bnd" origin-path="" origin="ADAPTER_CATALOG">
+			<instance name="FileAdapter"/>
+			<config-files>
+				<file name="..\..\config/File.xml.dist" timestamp="1480722660282"/>
+			</config-files>
+			<bundle-instance-files>
+			</bundle-instance-files>
+			<static-files>
+				<file name="..\..\config/File-static.xml" timestamp="1480722660284"/>
+			</static-files>
+			<dashboard-files>
+			</dashboard-files>
+			<evt-files>
 			</evt-files>
 		</bundle>
 	</bundles>

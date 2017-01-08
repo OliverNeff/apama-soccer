@@ -9,13 +9,13 @@
 package saep.Soccer;
 query SprintDistance {	
 	// Keine Ahnung wie man Parameter setzt? 
-	//parameters {
-	//	float period;
- 	//}
+	parameters {
+		float period;
+ 	}
 		
 	
 	inputs  {
-		Dataset() within 1 min;
+		Dataset() within period;
 	}
 
 	find Dataset:d1 -> Dataset:d2
