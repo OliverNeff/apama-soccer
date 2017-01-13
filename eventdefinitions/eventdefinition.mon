@@ -57,6 +57,22 @@ event AvgDataset {
 	integer y;
 }
 
+event standingDataset {
+	string name;
+	integer time;
+	integer distance;
+}
+
+event AggregateRunningStatisticsDataset {
+	//ts, player_id, standing_time, standing_distance, trot_time, trot_distance, low_time, low_distance, medium_time, medium_distance, high_time, high_distance, sprint_time, sprint_distance 
+
+	string name;
+	integer ts;
+	
+	integer standing_time;
+	integer standing_distance;
+}
+
 event aggregatedDataset {
 	string name;
 	float sprintDistance;
