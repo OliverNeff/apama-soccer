@@ -14,15 +14,20 @@ query SprintDistance {
 		
 	
 	inputs  {
-	AvgDataset() within period;
+	AvgDataset() key name within period;
 		
 	//Dataset() within period; 
 	}
 
-	find AvgDataset:d1 -> AvgDataset:d2
+	find every AvgDataset:d1 -> AvgDataset:d2
 		// Get left and right leg of an player. 
-		where d1.name = d2.name {
-		log "distance=" + distance( d1, d2).toString() at INFO;
+		where d1.name = d2.name
+		select com.apama.aggregates.sum(distance(d1, d2)):totalDistance
+		having speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())) > 24.0
+		{
+		log "distance=" + totalDistance.toString() at INFO;
+		
+		
  	}		
 
 	 action distance( AvgDataset a, AvgDataset b) returns float {
@@ -31,8 +36,9 @@ query SprintDistance {
  		return ( x*x + y*y ).sqrt();
 	 }
 	 
-	 action speed(float distance, float milisec) returns float {
-	 	return distance / milisec;
+	 action speed(float distance, float milisec) returns float { 
+	 	log "speed" + ((distance / milisec) * 3.6).toString();
+	 	return (distance / milisec) * 3.6;
 	 }
 
 }
