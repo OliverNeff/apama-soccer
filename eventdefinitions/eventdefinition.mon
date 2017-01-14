@@ -53,8 +53,9 @@ event Dataset {
 
 event AvgDataset {
 	string name;
+	integer ts;
 	integer x;
-	integer y;
+	integer y;   
 }
 
 event standingDataset {

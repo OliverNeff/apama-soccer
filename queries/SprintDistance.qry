@@ -8,22 +8,31 @@
 
 package saep.Soccer;
 query SprintDistance {	
-	// Keine Ahnung wie man Parameter setzt? 
 	parameters {
 		float period; 
  	}
 		
 	
 	inputs  {
-	//	.saep.Soccer.AvgDataset() within 50 msec;
+	AvgDataset() within period;
 		
-		Dataset() within period; 
+	//Dataset() within period; 
 	}
 
 	find AvgDataset:d1 -> AvgDataset:d2
 		// Get left and right leg of an player. 
 		where d1.name = d2.name {
-			log "distance=" + /*math.root*/((d1.x - d2.x)*(d1.x - d2.x) + (d1.y - d2.y)*(d1.y - d2.y)) at INFO;
- 		//	log "Suspicious withdrawal: " + d1.toString() + d2.toString() at INFO;
- 		}
+		log "distance=" + distance( d1, d2).toString() at INFO;
+ 	}		
+
+	 action distance( AvgDataset a, AvgDataset b) returns float {
+ 		float x := a.x.toFloat() - b.x.toFloat();
+ 		float y := a.y.toFloat() - b.y.toFloat();
+ 		return ( x*x + y*y ).sqrt();
+	 }
+	 
+	 action speed(float distance, float milisec) returns float {
+	 	return distance / milisec;
+	 }
+
 }

@@ -17,6 +17,6 @@ query AvgPosition {
 	find Dataset:d1 -> Dataset:d2
 		// Get left and right leg of an player. 
 		where d1.name = d2.name and d1.bodypart != d2.bodypart {
- 			send AvgDataset(d2.name, (d1.x + d2.x)/2 , (d1.y + d2.y)/2) to "";
+ 			send AvgDataset(d2.name, d2.ts, (d1.x + d2.x)/2 , (d1.y + d2.y)/2) to "";
  		}
 }
