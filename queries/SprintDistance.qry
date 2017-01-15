@@ -24,12 +24,12 @@ query SprintDistance {
 		select com.apama.aggregates.sum(distance(d1, d2)):totalDistance
 		select com.apama.aggregates.first(d1.ts):ts_start
 		select com.apama.aggregates.last(d2.ts):ts_stop
-	    select speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())):avgSpeed
+	    select speed(totalDistance,toMillisec(com.apama.aggregates.last(d2.ts.toFloat())) - toMillisec(com.apama.aggregates.first(d1.ts.toFloat()))):avgSpeed
 		 
-		having speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())) > 0.0//1.2483156526379123e-07
+		having speed(totalDistance, toMillisec(com.apama.aggregates.last(d2.ts.toFloat())) - toMillisec(com.apama.aggregates.first(d1.ts.toFloat()))) > 0.0//1.2483156526379123e-07
 	{
 		// m und m/h  / 1000.0 * 1000.0
-		send CurrentRunningStatisticsDataset(name, ts_start, ts_stop, "sprint", totalDistance , avgSpeed ) to "";  
+		send CurrentRunningStatisticsDataset(name, ts_start, ts_stop, getIntentsity(avgSpeed), totalDistance , avgSpeed ) to "";  
 
  	//  spielstart 10748401988186756
 	//	log "########distance=" + totalDistance.toString() at INFO;
@@ -50,9 +50,48 @@ query SprintDistance {
  		return ( x*x + y*y ).sqrt();
 	 }
 	 
-	 action speed(float distance, float milisec) returns float { 
-	 	 log "speed" + ((distance / milisec) * 3.6).toString();
-	 	return (distance / milisec) * 3.6;
+	 action speed(float distance, float millisec) returns float { 
+	 	 log "speed" + ((distance / millisec) * 0.277778).toString();
+	 	return (distance / millisec) * 0.277778;
+	 }
+	 
+	action toSeconds(float picoSeconds) returns float
+	{
+		return picoSeconds*10e-13;
+	}
+	
+		action toMillisec(float picoSeconds) returns float
+	{
+		return picoSeconds*10e-10;
+	}
+	 
+	 	action getIntentsity(float speed) returns string {	 		
+	 		if (speed >= 24.0)
+	 			then {
+	 			return "sprint";
+	 		}
+	 		
+	 		if (speed >= 17.0)
+	 			then {
+	 			return "high";
+	 		} 	
+	 		
+	 		if (speed >= 14.0)
+	 			then {
+	 			return "medium";
+	 		} 	
+	 		
+	 		if (speed >= 11.0)
+	 			then {
+	 			return "low";
+	 		} 	
+	 		
+	 		if (speed >= 1.0)
+	 			then {
+	 			return "trot";
+	 		}
+	 				
+	 	return "stop";
 	 }
 
 } 
