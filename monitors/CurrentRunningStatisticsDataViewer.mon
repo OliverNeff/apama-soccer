@@ -1,0 +1,91 @@
+//*****************************************************************************
+// Title:         CurrentRunningStatisticsDataViewer
+// Description:   CurrentRunningStatisticsDataViewer description
+// Dependencies:  None
+// Author:        Bernd
+//
+//*****************************************************************************
+ 
+package saep.Soccer;
+ 
+using com.apama.dataview.DataViewAddDefinition;
+using com.apama.dataview.DataViewException;
+using com.apama.dataview.DataViewDefinition;
+using com.apama.dataview.DataViewAddItem;
+using com.apama.dataview.DataViewItem;
+using com.apama.dataview.DataViewUpdateItem;
+using com.apama.dataview.DataViewItemException;
+
+ 
+
+monitor CurrentRunningStatisticsDataViewer {
+	
+	string DataViewName := "currentRunningStatisticsDataViewer";
+	
+	action onload() {
+
+		DataViewAddDefinition add := new DataViewAddDefinition;
+		add.dvName := DataViewName;
+		add.dvDisplayName := "Datasets";
+		add.fieldNames := ["name","ts_start", "ts_stop", "intensity", "distance", "speed"];
+		add.fieldTypes := ["string","integer", "integer", "string", "float", "float"];
+		add.keyFields := ["name"];
+		add.msgId := integer.getUnique().toString();
+		
+		route add;
+		
+
+		DataViewException dvException;
+		on DataViewException(msgId=add.msgId):dvException
+		and not DataViewDefinition(msgId=add.msgId){
+			log "Exception: " + dvException.message;
+		}
+
+		on DataViewDefinition(msgId=add.msgId){
+			CurrentRunningStatisticsDataset ds;
+			on all CurrentRunningStatisticsDataset():ds {
+				
+				DataViewAddItem item := new DataViewAddItem;
+				item.dvName := DataViewName;
+				item.owner := "*";
+				item.fieldValues := [ds.name,ds.ts_start.toString(),ds.ts_stop.toString(), ds.intensity,ds.distance.toString(),ds.speed.toString()];
+				item.timeStamp := currentTime;
+				item.msgId := integer.getUnique().toString();
+
+				route item;
+				DataViewItemException itemExp;
+				on DataViewItemException(msgId=item.msgId):itemExp
+				   and not DataViewItem(msgId=item.msgId){
+					log "Exception: " + itemExp.message;
+				}
+
+				DataViewItem added;
+				on DataViewItem(msgId=item.msgId):added {
+					//log ("DataViewItem: " + added.dvItemId.toString());
+					spawn updateItem(ds.name);
+				}
+
+			}
+		}
+	}
+	
+	action updateItem(string sidIn){
+		CurrentRunningStatisticsDataset ds;
+		on all CurrentRunningStatisticsDataset(name=sidIn):ds {
+			DataViewUpdateItem itemUpdate := new DataViewUpdateItem;
+			itemUpdate.dvName := DataViewName;
+			itemUpdate.fieldValues := [ds.name,ds.ts_start.toString(),ds.ts_stop.toString(), ds.intensity,ds.distance.toString(),ds.speed.toString()];
+			itemUpdate.timeStamp := currentTime;
+			itemUpdate.dvItemId := -1;
+			itemUpdate.msgId := integer.getUnique().toString();
+
+			route itemUpdate;
+
+			DataViewItemException itemExp;
+			on DataViewItemException(msgId=itemUpdate.msgId):itemExp {
+				//log "Exception: " + itemExp.message;
+			}
+		}
+		
+	}
+}
