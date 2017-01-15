@@ -20,7 +20,7 @@ query SprintDistance {
 	}
 // Habe was gefunden. Siehe seite 856 unten in doku: "Ist eigentlich D1 und D2 der erste und der letzte, oder immer die letzten beiden elemente?
 	find every AvgDataset:d1 -> AvgDataset:d2
-	 	where d1.name = d2.name
+	 	where d1.name = d2.name and d1.ts < d2.ts
 		select com.apama.aggregates.sum(distance(d1, d2)):totalDistance
 		select com.apama.aggregates.first(d1.ts):ts_start
 		select com.apama.aggregates.last(d2.ts):ts_stop
