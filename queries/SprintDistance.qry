@@ -8,28 +8,42 @@
 
 package saep.Soccer;
 query SprintDistance {	
-	parameters {
+ 	parameters {
 		float period; 
  	}
 		
 	
 	inputs  {
 	AvgDataset() key name within period;
-		
-	//Dataset() within period; 
+	// AvgDataset() key name within 60.0; 
+	 
 	}
-
+// Habe was gefunden. Siehe seite 856 unten in doku: "Ist eigentlich D1 und D2 der erste und der letzte, oder immer die letzten beiden elemente?
 	find every AvgDataset:d1 -> AvgDataset:d2
-		// Get left and right leg of an player. 
-		where d1.name = d2.name
+	 	where d1.name = d2.name
 		select com.apama.aggregates.sum(distance(d1, d2)):totalDistance
-		having speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())) > 24.0
-		{
-		log "distance=" + totalDistance.toString() at INFO;
-		
-		
- 	}		
+		select com.apama.aggregates.first(d1.ts):ts_start
+		select com.apama.aggregates.last(d2.ts):ts_stop
+	    select speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())):avgSpeed
+		 
+		having speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())) > 0.0//1.2483156526379123e-07
+	{
+		// m und m/h  / 1000.0 * 1000.0
+		send CurrentRunningStatisticsDataset(name, ts_start, ts_stop, "sprint", totalDistance , avgSpeed ) to "";  
 
+ 	//  spielstart 10748401988186756
+	//	log "########distance=" + totalDistance.toString() at INFO;
+		log "########zeit=" + ((ts_start - 10748401988186756) / 1000000000000).toString() at INFO;
+	}
+	
+	 
+	/* 	having speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())) > 2.0
+	{
+		log ""++++++++++++++distance=" + totalDistance.toString() at INFO;
+		
+ 	}	*/	
+ 	
+  
 	 action distance( AvgDataset a, AvgDataset b) returns float {
  		float x := a.x.toFloat() - b.x.toFloat();
  		float y := a.y.toFloat() - b.y.toFloat();
@@ -37,8 +51,9 @@ query SprintDistance {
 	 }
 	 
 	 action speed(float distance, float milisec) returns float { 
-	 	log "speed" + ((distance / milisec) * 3.6).toString();
+	 	 log "speed" + ((distance / milisec) * 3.6).toString();
 	 	return (distance / milisec) * 3.6;
 	 }
 
-}
+} 
+
