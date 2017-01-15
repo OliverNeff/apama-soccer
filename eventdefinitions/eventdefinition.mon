@@ -55,14 +55,26 @@ event AvgDataset {
 	string name;
 	integer ts;
 	integer x;
-	integer y;   
+	integer y;
 }
-
+/*
 event standingDataset {
 	string name;
 	integer time;
 	integer distance;
 }
+*/
+
+event CurrentRunningStatisticsDataset {
+	string name;
+	integer ts_start;
+	integer ts_stop;
+	
+	string intensity;
+	float distance;
+	float speed;
+
+} 
 
 event AggregateRunningStatisticsDataset {
 	//ts, player_id, standing_time, standing_distance, trot_time, trot_distance, low_time, low_distance, medium_time, medium_distance, high_time, high_distance, sprint_time, sprint_distance 
@@ -73,11 +85,11 @@ event AggregateRunningStatisticsDataset {
 	integer standing_time;
 	integer standing_distance;
 }
-
+/*
 event aggregatedDataset {
 	string name;
 	float sprintDistance;
-}
+}*/
 
 // Metadata helper object for routing in Dataset. 
 event Metadata {
