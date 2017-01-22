@@ -1,0 +1,131 @@
+//*****************************************************************************
+// Title:         Eventdefinition
+// Description:   Eventdefinition description
+// Dependencies:  None
+// Author:        Bernd
+//
+//*****************************************************************************
+
+
+//Team A:
+//
+//
+// Nick Gertje (Left Leg: 13, Right Leg: 14, Left Arm: 97, Right Arm: 98)
+// Dennis Dotterweich (Left Leg: 47, Right Leg:16)
+// Niklas Waelzlein (Left Leg: 49, Right Leg: 88)
+// Wili Sommer (Left Leg: 19, Right Leg: 52)
+// Philipp Harlass (Left Leg: 53, Right Leg: 54)
+// Roman Hartleb (Left Leg: 23, Right Leg: 24)
+// Erik Engelhardt (Left Leg: 57, Right Leg: 58)
+// Sandro Schneider (Left Leg: 59, Right Leg: 28)
+//
+//
+//
+// Team B:
+//
+//
+// Leon Krapf (Left Leg: 61, Right Leg: 62, Left Arm: 99, Right Arm: 100)
+// Kevin Baer (Left Leg: 63, Right Leg: 64)
+// Luca Ziegler (Left Leg: 65, Right Leg: 66)
+// Ben Mueller (Left Leg: 67, Right Leg: 68)
+// Vale Reitstetter (Left Leg: 69, Right Leg: 38)
+// Christopher Lee (Left Leg: 71, Right Leg: 40)
+// Leon Heinze (Left Leg: 73, Right Leg: 74)
+// Leo Langhans (Left Leg: 75, Right Leg: 44)
+
+package saep.Soccer;
+
+
+event ReadTrigger {
+	string filename;
+}
+
+event Dataset {
+	string name;
+	string bodypart;
+	integer sid;
+	integer ts;
+	integer x;
+	integer y;
+	integer z;
+	integer v;
+}
+
+event AvgDataset {
+	string name;
+	integer ts;
+	integer x;
+	integer y;
+}
+/*
+event standingDataset {
+	string name;
+	integer time;
+	integer distance;
+}
+*/
+
+event CurrentRunningStatisticsDataset {
+	string name;
+	integer ts_start;
+	integer ts_stop;
+	string intensity;
+	float distance;
+	float speed;
+
+} 
+
+event AggregateRunningStatisticsDataset {
+	string name;
+	integer ts;
+	integer standing_time;
+	float standing_distance;
+	integer trot_time;
+	float trot_distance;
+	integer low_time;
+	float low_distance;
+	integer medium_time;
+	float medium_distance;
+	integer high_time;
+	float high_distance;
+	integer sprint_time;
+	float sprint_distance;
+}
+
+event RawEvent{
+	integer sensorId;
+	integer timeStamp;
+	integer x;
+	integer y;
+	integer z;
+	integer velocity;
+	integer acceleration;
+	integer velocityX;
+	integer velocityY;
+	integer velocityZ;
+	integer accelerationX;
+	integer accelerationY;
+	integer accelerationZ;
+	
+	action getSourceTime() returns float {
+		string sec := "0.0";
+		integer length := timeStamp.toString().length();
+		if (length > 4) then {
+			sec := timeStamp.toString().substring(0, 5) + "." + timeStamp.toString().substring(5, length);
+		}
+		return sec.toFloat();
+	}
+}
+
+
+/*
+event aggregatedDataset {
+	string name;
+	float sprintDistance;
+}*/
+
+// Metadata helper object for routing in Dataset. 
+event Metadata {
+	string name;
+	string bodypart;
+}

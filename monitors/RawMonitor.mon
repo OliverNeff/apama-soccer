@@ -1,0 +1,117 @@
+//*****************************************************************************
+// Title:         RawMonitor
+// Description:   Creates a SensorEvent from each RawEvent.
+// Dependencies:  Event type definitions
+// Author:        Software AG
+//
+//*****************************************************************************
+
+package saep.Soccer;
+
+monitor RawMonitor {
+	action onload() {
+		RawEvent raw;
+		on all RawEvent(sensorId=13) : raw {
+			route Dataset("Nick Gertje", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+			log "\\n\\n\\n\\nNick Gertje\\n\\n\\n\\n" at INFO;
+		}
+		on all RawEvent(sensorId=14) : raw {
+			route Dataset("Nick Gertje", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=47) : raw {
+			route Dataset("Dennis Dotterweich", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=16) : raw {
+			route Dataset("Dennis Dotterweich", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=49) : raw {
+			route Dataset("Niklas Waelzlein", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=88) : raw {
+			route Dataset("Niklas Waelzlein", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		
+		on all RawEvent(sensorId=19) : raw {
+			route Dataset("Wili Sommer", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=52) : raw {
+			route Dataset("Wili Sommer", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}				
+		on all RawEvent(sensorId=53) : raw {
+			route Dataset("Philipp Harlass", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=54) : raw {
+			route Dataset("Philipp Harlass", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+			
+		on all RawEvent(sensorId=23) : raw {
+			route Dataset("Roman Hartleb", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=24) : raw {
+			route Dataset("Roman Hartleb", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=57) : raw {
+			route Dataset("Erik Engelhardt", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=58) : raw {
+			route Dataset("Erik Engelhardt", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=59) : raw {
+			route Dataset("Sandro Schneider", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=28) : raw {
+			route Dataset("Sandro Schneider", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		
+		// TEAM B
+		on all RawEvent(sensorId=61) : raw {
+			route Dataset("Leon Krapf", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=62) : raw {
+			route Dataset("Leon Krapf", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=63) : raw {
+			route Dataset("Kevin Baer", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=64) : raw {
+			route Dataset("Kevin Baer", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=65) : raw {
+			route Dataset("Luca Ziegler", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=66) : raw {
+			route Dataset("Luca Ziegler", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=67) : raw {
+			route Dataset("Ben Mueller", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=68) : raw {
+			route Dataset("Ben Mueller", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=69) : raw {
+			route Dataset("Vale Reitstetter", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=38) : raw {
+			route Dataset("Vale Reitstetter", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		
+		on all RawEvent(sensorId=71) : raw {
+			route Dataset("Christopher Lee", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=40) : raw {
+			route Dataset("Christopher Lee", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=73) : raw {
+			route Dataset("Leon Heinze", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=74) : raw {
+			route Dataset("Leon Heinze", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=75) : raw {
+			route Dataset("Leo Langhans", "leftLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+		on all RawEvent(sensorId=44) : raw {
+			route Dataset("Leo Langhans", "rightLeg", raw.sensorId, raw.timeStamp, raw.x, raw.y, raw.z, raw.velocity);
+		}
+	}
+}

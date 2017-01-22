@@ -1,6 +1,6 @@
 <dashboardDeployConfigs>
   <deploy>
-    <property name="apama.rtv.name" value="apama-soccer"/>
+    <property name="apama.rtv.name" value="Soccer"/>
     <property name="apama.customName" value=""/>
     <property name="apama.deployment.configName" value="My Config"/>
     <property name="apama.displayserver.host" value="localhost"/>

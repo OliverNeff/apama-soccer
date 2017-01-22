@@ -1,0 +1,19 @@
+//*****************************************************************************
+// Title:         AvgDatasetMonitor
+// Description:   AvgDatasetMonitor description
+// Dependencies:  None
+// Author:        kerz
+//
+//*****************************************************************************
+
+package saep.Soccer;
+
+monitor AvgDatasetMonitor {
+	action onload() {
+		AvgDataset avg;
+		on all AvgDataset() : avg {
+			// log "\\n\\n\\n\\n\\n"+ avg.x.toString() at INFO;
+			send avg to "com.apama.queries";
+		}
+	}
+}

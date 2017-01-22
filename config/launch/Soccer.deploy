@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><configuration>
+<intAttribute key="com.apama.text.CONFIG_VERSION" value="3"/>
+<listAttribute key="com.apama.text.COMPONENTS">
+<listEntry>
+
+
+
+
+
+
+
+
+
+
+
+
+<component clear="true" connectivityPluginEnabled="false" correlatorLog="false" correlatorLogLocation="logs/${LAUNCH_CONFIG_NAME}_${CORRELATOR_NAME}.output.log" dataLocationDir="${project_loc:Soccer}/database/defaultCorrelator" distMemoryStoreEnabled="false" enabled="true" extraArguments="--externalClock" hostname="localhost" inputLog="true" inputLogLocation="logs/defaultCorrelator_${START_TIME}_${ID}.input.log" isAutomaticOrdering="true" isPeristanceEnabled="false" javaEnabled="true" jmsResiliencyEnabled="false" logLevel="INFO" maxMBLocalHeap="512" maxMBLocalHeapEnabled="false" maxMBLocalOffHeap="16384" maxMBLocalOffHeapEnabled="false" name="defaultCorrelator" persistenceStartupOption="CLEAR_REINJECT" port="15903" reuse="true" type="CORRELATOR" umConfigurationEnabled="false" workingDir="/Soccer" xConfigEnabled="false" xConfigLocation="${project_loc:Soccer}/config/ApamaExtendedConfig.txt">
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/adapters/monitors/FileEvents.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="File Adapter"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="File.bnd"/>
+<attribute name="bundle-display-name" value="File Adapter"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="../../monitors/IAFStatusManager.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="IAF Status Manager"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="File.bnd"/>
+<attribute name="bundle-display-name" value="IAF Status Manager"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/StatusSupport.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Status Support"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="File.bnd"/>
+<attribute name="bundle-display-name" value="Status Support"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/adapters/monitors/FileStatusManager.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="File Adapter"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="ADAPTER_CATALOG"/>
+<attribute name="bundle-file" value="File.bnd"/>
+<attribute name="bundle-display-name" value="File Adapter"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/DataViewService_Interface.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="DataView Service"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="DataViewService.bnd"/>
+<attribute name="bundle-display-name" value="DataView Service"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/ScenarioService.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Scenario Service"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="ScenarioService.bnd"/>
+<attribute name="bundle-display-name" value="Scenario Service"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/TimeFormatEvents.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Time Format"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="QuerySupport.bnd"/>
+<attribute name="bundle-display-name" value="Time Format"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/ManagementImpl.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Correlator Management"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="QuerySupport.bnd"/>
+<attribute name="bundle-display-name" value="Correlator Management"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/Management.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Correlator Management"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="QuerySupport.bnd"/>
+<attribute name="bundle-display-name" value="Correlator Management"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/data_storage/MemoryStore.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="The MemoryStore"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="QuerySupport.bnd"/>
+<attribute name="bundle-display-name" value="The MemoryStore"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/query_support/QueryServices.cdp" type="PROJECT_BUNDLE_CDP_FILE">
+<attributes>
+<attribute name="bundle-name" value="Query support"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="QuerySupport.bnd"/>
+<attribute name="bundle-display-name" value="Query support"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/DataViewService_Impl_Dict.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="DataView Service"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="DataViewService.bnd"/>
+<attribute name="bundle-display-name" value="DataView Service"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/data_storage/MemoryStoreScenarioImpl.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="The MemoryStore"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="QuerySupport.bnd"/>
+<attribute name="bundle-display-name" value="The MemoryStore"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="${APAMA_HOME}/monitors/scenario_support/ScenarioDeleterSupport.mon" type="PROJECT_BUNDLE_MON_FILE">
+<attributes>
+<attribute name="bundle-name" value="Scenario Service"/>
+<attribute name="origin-path" value=""/>
+<attribute name="origin" value="PRODUCT_CATALOG"/>
+<attribute name="bundle-file" value="ScenarioService.bnd"/>
+<attribute name="bundle-display-name" value="Scenario Service"/>
+</attributes>
+</runtimeDependencyEntry>
+<runtimeDependencyEntry enabled="true" path="/Soccer/eventdefinitions/eventdefinition.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/DataViewer.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/AvgDatasetMonitor.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/DatasetQueryMonitor.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/RawMonitor.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/CurrentStatisticDatasetMonitor.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/CurrentRunningStatisticsDataViewer.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/FileReader.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/monitors/AggregateRunningStatisticsDataViewer.mon" type="PROJECT_MON_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/queries/AvgPosition.qry" type="PROJECT_QUERY_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/queries/SprintDistance.qry" type="PROJECT_QUERY_FILE"/>
+<runtimeDependencyEntry enabled="true" path="/Soccer/bundle_instance_files/Query_support/AllQueriesInjected.evt" type="PROJECT_EVENT_FILE"/>
+<runtimeDependencyEntry enabled="false" path="/Soccer/events/event.evt" type="PROJECT_EVENT_FILE"/>
+<runtimeDependencyEntry enabled="false" path="/Soccer/events/soccerExampleEvent.evt" type="PROJECT_EVENT_FILE"/>
+<runtimeDependencyEntry enabled="false" path="/Soccer/events/full-game-time.evt" type="PROJECT_EVENT_FILE"/>
+</component>
+</listEntry>
+
+<listEntry>
+<component enabled="true" extraArguments="" name="FileAdapter" port="16903" propertiesFile="bundle_instance_files/File_Adapter/File_FileAdapter.properties" type="ADAPTER" umConfigurationEnabled="false" workingDir="/Soccer"/>
+</listEntry>
+</listAttribute>
+<booleanAttribute key="com.apama.text.OPEN_DASHBOARD_ATTR" value="true"/>
+<booleanAttribute key="com.apama.text.OPEN_DEFAULT_DASHBOARD_ATTR" value="true"/>
+<booleanAttribute key="com.apama.text.OPEN_ENABLE_DATAPLAYER_MODE_ATTR" value="false"/>
+<booleanAttribute key="com.apama.text.GENERATE_TIME_EVENTS_ATTR" value="false"/>
+<stringAttribute key="com.apama.text.DASHBOARD_PATH_ATTR" value="dashboards/dashboard.rtv"/>
+<stringAttribute key="com.apama.text.DASHBOARD_VIEWER_ARGS" value=""/>
+</configuration>

@@ -1,0 +1,117 @@
+//*****************************************************************************
+// Title:         DataViewer
+// Description:   DataViewer description
+// Dependencies:  None
+// Author:        Bernd
+//
+//*****************************************************************************
+
+package saep.Soccer;
+
+// TODO: Monitors and event definitions here
+
+using com.apama.dataview.DataViewAddDefinition;
+using com.apama.dataview.DataViewException;
+using com.apama.dataview.DataViewDefinition;
+using com.apama.dataview.DataViewAddItem;
+using com.apama.dataview.DataViewItem;
+using com.apama.dataview.DataViewUpdateItem;
+using com.apama.dataview.DataViewItemException;
+
+//Team A:
+//
+//
+// Nick Gertje (Left Leg: 13, Right Leg: 14, Left Arm: 97, Right Arm: 98)
+// Dennis Dotterweich (Left Leg: 47, Right Leg:16)
+// Niklas Waelzlein (Left Leg: 49, Right Leg: 88)
+// Wili Sommer (Left Leg: 19, Right Leg: 52)
+// Philipp Harlass (Left Leg: 53, Right Leg: 54)
+// Roman Hartleb (Left Leg: 23, Right Leg: 24)
+// Erik Engelhardt (Left Leg: 57, Right Leg: 58)
+// Sandro Schneider (Left Leg: 59, Right Leg: 28)
+//
+//
+//
+// Team B:
+//
+//
+// Leon Krapf (Left Leg: 61, Right Leg: 62, Left Arm: 99, Right Arm: 100)
+// Kevin Baer (Left Leg: 63, Right Leg: 64)
+// Luca Ziegler (Left Leg: 65, Right Leg: 66)
+// Ben Mueller (Left Leg: 67, Right Leg: 68)
+// Vale Reitstetter (Left Leg: 69, Right Leg: 38)
+// Christopher Lee (Left Leg: 71, Right Leg: 40)
+// Leon Heinze (Left Leg: 73, Right Leg: 74)
+// Leo Langhans (Left Leg: 75, Right Leg: 44)
+
+monitor DataViewer {
+	
+	string DataViewName := "runningDataView";
+	
+	action onload() {
+
+		DataViewAddDefinition add := new DataViewAddDefinition;
+		add.dvName := DataViewName;
+		add.dvDisplayName := "Datasets";
+		add.fieldNames := ["name","x", "y"];
+		add.fieldTypes := ["string","integer", "integer"];
+		add.keyFields := ["name"];
+		add.msgId := integer.getUnique().toString();
+
+		route add;
+		
+
+		DataViewException dvException;
+		on DataViewException(msgId=add.msgId):dvException
+		and not DataViewDefinition(msgId=add.msgId){
+			log "Exception: " + dvException.message;
+		}
+
+		on DataViewDefinition(msgId=add.msgId){
+			AvgDataset ds;
+			on all AvgDataset():ds {
+				
+				DataViewAddItem item := new DataViewAddItem;
+				item.dvName := DataViewName;
+				item.owner := "*";
+				item.fieldValues := [ds.name,ds.x.toString(), ds.y.toString()];
+				item.timeStamp := currentTime;
+				item.msgId := integer.getUnique().toString();
+
+				route item;
+				DataViewItemException itemExp;
+				on DataViewItemException(msgId=item.msgId):itemExp
+				   and not DataViewItem(msgId=item.msgId){
+					log "Exception: " + itemExp.message;
+				}
+
+				DataViewItem added;
+				on DataViewItem(msgId=item.msgId):added {
+					//log ("DataViewItem: " + added.dvItemId.toString());
+					spawn updateItem(ds.name);
+				}
+
+			}
+		}
+	}
+	
+	action updateItem(string sidIn){
+		AvgDataset data;
+		on all AvgDataset(name=sidIn):data {
+			DataViewUpdateItem itemUpdate := new DataViewUpdateItem;
+			itemUpdate.dvName := DataViewName;
+			itemUpdate.fieldValues := [data.name,data.x.toString(), data.y.toString()];
+			itemUpdate.timeStamp := currentTime;
+			itemUpdate.dvItemId := -1;
+			itemUpdate.msgId := integer.getUnique().toString();
+
+			route itemUpdate;
+
+			DataViewItemException itemExp;
+			on DataViewItemException(msgId=itemUpdate.msgId):itemExp {
+				//log "Exception: " + itemExp.message;
+			}
+		}
+		
+	}
+}
