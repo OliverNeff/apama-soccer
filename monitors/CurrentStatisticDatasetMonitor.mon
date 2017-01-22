@@ -1,0 +1,136 @@
+//*****************************************************************************
+// Title:         CurrentStatisticDatasetMonitor
+// Description:   CurrentStatisticDatasetMonitor description
+// Dependencies:  None
+// Author:        kerz
+//
+//*****************************************************************************
+
+package saep.Soccer;
+
+
+monitor CurrentStatisticDatasetMonitor {
+	
+	dictionary<string, integer> standing_time;
+	dictionary<string, float> standing_distance;
+	dictionary<string, integer> trot_time;
+	dictionary<string, float> trot_distance;
+	dictionary<string, integer> low_time;
+	dictionary<string, float> low_distance;
+	dictionary<string, integer> medium_time;
+	dictionary<string, float> medium_distance;
+	dictionary<string, integer> high_time;
+	dictionary<string, float> high_distance;
+	dictionary<string, integer> sprint_time;
+	dictionary<string, float> sprint_distance;
+	dictionary<string, string> playerId;
+	
+	action onload() {
+		initPlayerId();
+		
+		string avgName;
+		for avgName in playerId.keys()
+		{
+			CurrentRunningStatisticsDataset avg;
+			on all CurrentRunningStatisticsDataset(name = avgName)  : avg
+			{
+				setTimeAndDistanceForPlayerId(avg);
+				
+				route AggregateRunningStatisticsDataset(avg.name, 0, standing_time[avg.name], standing_distance[avg.name], trot_time[avg.name], 
+				                                        trot_distance[avg.name],low_time[avg.name], low_distance[avg.name], medium_time[avg.name], 
+				                                        medium_distance[avg.name], high_time[avg.name], high_distance[avg.name], 
+				                                        sprint_time[avg.name], sprint_distance[avg.name]);
+			}
+		}
+		
+		
+	}
+	
+		
+	
+	action initPlayerId() {
+		playerId.add("Nick Gertje", "Nick Gertje");
+		initTimeAndDistanceDictonary ("Nick Gertje");
+		playerId.add("Dennis Dotterweich", "Dennis Dotterweich");
+		initTimeAndDistanceDictonary ("Dennis Dotterweich");
+		playerId.add("Niklas Waelzlein", "Niklas Waelzlein");
+		initTimeAndDistanceDictonary ("Niklas Waelzlein");
+		playerId.add("Wili Sommer", "Wili Sommer");
+		initTimeAndDistanceDictonary ("Wili Sommer");
+		playerId.add("Philipp Harlass", "Philipp Harlass");
+		initTimeAndDistanceDictonary ("Philipp Harlass");
+		playerId.add("Roman Hartleb", "Roman Hartleb");
+		initTimeAndDistanceDictonary ("Roman Hartleb");
+		playerId.add("Erik Engelhardt", "Erik Engelhardt");
+		initTimeAndDistanceDictonary ("Erik Engelhardt");
+		playerId.add("Sandro Schneider", "Sandro Schneider");
+		initTimeAndDistanceDictonary ("Sandro Schneider");
+		
+		playerId.add("Leon Krapf", "Leon Krapf");
+		initTimeAndDistanceDictonary ("Leon Krapf");
+		playerId.add("Kevin Baer", "Kevin Baer");
+		initTimeAndDistanceDictonary ("Kevin Baer");
+		playerId.add("Luca Ziegler", "Luca Ziegler");
+		initTimeAndDistanceDictonary ("Luca Ziegler");
+		playerId.add("Ben Mueller", "Ben Mueller");
+		initTimeAndDistanceDictonary ("Ben Mueller");
+		playerId.add("Vale Reitstetter", "Vale Reitstetter");
+		initTimeAndDistanceDictonary ("Vale Reitstetter");
+		playerId.add("Christopher Lee", "Christopher Lee");
+		initTimeAndDistanceDictonary ("Christopher Lee");
+		playerId.add("Leon Heinze", "Leon Heinze");
+		initTimeAndDistanceDictonary ("Leon Heinze");
+		playerId.add("Leo Langhans", "Leo Langhans");
+		initTimeAndDistanceDictonary ("Leo Langhans");
+	}
+	
+	action initTimeAndDistanceDictonary (string name) {
+		standing_time.add(name, 0);
+		standing_distance.add(name, 0.0);
+		trot_time.add(name, 0);
+		trot_distance.add(name, 0.0);
+		low_time.add(name, 0);
+		low_distance.add(name, 0.0);
+		medium_time.add(name, 0);
+		medium_distance.add(name, 0.0);
+		high_time.add(name, 0);
+		high_distance.add(name, 0.0);
+		sprint_time.add(name, 0);
+		sprint_distance.add(name, 0.0);
+	}
+	
+	action setTimeAndDistanceForPlayerId( CurrentRunningStatisticsDataset avg)
+	{
+		log "\\n\\n\\n\\n\\n log"+ avg.name + avg.distance.toString() + avg.intensity at INFO;
+		if avg.intensity = "stop" then
+		{
+			standing_time[avg.name] := standing_time[avg.name] + (avg.ts_stop - avg.ts_start);
+			standing_distance[avg.name] := standing_distance[avg.name] + avg.distance;
+		}
+		if avg.intensity = "trot" then
+		{
+			trot_time[avg.name] := trot_time[avg.name] + (avg.ts_stop - avg.ts_start);
+			trot_distance[avg.name] := trot_distance[avg.name] + avg.distance;
+		}
+		if avg.intensity = "low" then
+		{
+			low_time[avg.name] := low_time[avg.name] + (avg.ts_stop - avg.ts_start);
+			low_distance[avg.name] := low_distance[avg.name] + avg.distance;
+		}
+		if avg.intensity = "medium" then
+		{
+			medium_time[avg.name] := medium_time[avg.name] + (avg.ts_stop - avg.ts_start);
+			medium_distance[avg.name] := medium_distance[avg.name] + avg.distance;
+		}
+		if avg.intensity = "high" then
+		{
+			high_time[avg.name] := high_time[avg.name] + (avg.ts_stop - avg.ts_start);
+			high_distance[avg.name] := high_distance[avg.name] + avg.distance;
+		}
+		if avg.intensity = "sprint" then
+		{
+			sprint_time[avg.name] := sprint_time[avg.name] + (avg.ts_stop - avg.ts_start);
+			sprint_distance[avg.name] := sprint_distance[avg.name] + avg.distance;
+		}
+	}
+}

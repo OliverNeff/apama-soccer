@@ -1,0 +1,108 @@
+//*****************************************************************************
+// Title:         SprintDistance
+// Description:   SprintDistance description
+// Dependencies:  None
+// Author:        olineff
+//
+//*****************************************************************************
+
+package saep.Soccer;
+
+query SprintDistance {	
+
+	/**/
+	parameters {
+		float period; 
+ 	}
+	
+		
+	inputs  {
+		//AvgDataset() key name within period;
+		.saep.Soccer.AvgDataset() key name within period; 
+	}
+// Habe was gefunden. Siehe seite 856 unten in doku: "Ist eigentlich D1 und D2 der erste und der letzte, oder immer die letzten beiden elemente?
+	find every AvgDataset:d1 -> AvgDataset:d2
+		//where d1.name = d2.name
+		select com.apama.aggregates.sum(distance(d1, d2)):totalDistance
+		select com.apama.aggregates.first(d1.ts):ts_start
+		select com.apama.aggregates.last(d2.ts):ts_stop
+	    select speed(mmtoMeter(totalDistance),com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())):avgSpeed	 
+		//having speed(totalDistance, com.apama.aggregates.last(d2.ts.toFloat()) - com.apama.aggregates.first(d1.ts.toFloat())) > 0.0//1.2483156526379123e-07
+	{
+		// m und m/h  / 1000.0 * 1000.0
+		//float avgSpeed:= 5.0;
+		//send CurrentRunningStatisticsDataset("Test", 0, 0, getIntentsity(0.0), 0.0 , 0.0 ) to "";  // to Dashboard
+		send CurrentRunningStatisticsDataset(name, ts_start, ts_stop, getIntentsity(avgSpeed), mmtoMeter(totalDistance) / 1000.0 , avgSpeed ) to "";
+ 		//  spielstart 10748401988186756
+		//	log "########distance=" + totalDistance.toString() at INFO;
+			if name = "Niklas Waelzlein" then
+			{
+				log "########zeit=" + ((ts_start - 10748401988186756)).toString() at INFO;
+			}
+		
+	}
+	
+  
+	 action distance( AvgDataset a, AvgDataset b) returns float {
+ 		float x := a.x.toFloat() - b.x.toFloat();
+ 		x := x.abs();
+ 		float y := a.y.toFloat() - b.y.toFloat();
+ 		y := y.abs();
+ 		
+ 		return ( x*x + y*y ).sqrt();
+	 }
+	 
+	 action mmtoMeter(float mm) returns float 
+	 {
+		return (mm*1e-3);
+	 }
+	 
+	 action speed(float distance, float picoSeconds) returns float { 
+	 	float result := distance / toSeconds(picoSeconds);
+	 	result:= result * 3.6;
+	 	 log "#### speed " + result.toString() at INFO;
+	 	// return (distance / millisec) * 0.277778;
+	 	return result;
+	 }
+	 
+	action toSeconds(float picoSeconds) returns float
+	{
+		return picoSeconds*10e-13;
+	}
+	
+	action toMillisec(float picoSeconds) returns float
+	{
+		return picoSeconds*10e-10;
+	}
+	 
+ 	action getIntentsity(float speed) returns string {	 		
+ 		if (speed >= 24.0)
+ 			then {
+ 			return "sprint";
+ 		}
+ 		
+ 		if (speed >= 17.0)
+ 			then {
+ 			return "high";
+ 		} 	
+ 		
+ 		if (speed >= 14.0)
+ 			then {
+ 			return "medium";
+ 		} 	
+ 		
+ 		if (speed >= 11.0)
+ 			then {
+ 			return "low";
+ 		} 	
+ 		
+ 		if (speed >= 1.0)
+ 			then {
+ 			return "trot";
+ 		}
+ 				
+ 		return "stop";
+  	}
+
+} 
+

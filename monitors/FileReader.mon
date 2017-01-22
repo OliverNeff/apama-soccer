@@ -8,14 +8,66 @@
 
 package saep.Soccer;
 
-// TODO: Monitors and event definitions here
-
-
 monitor ReadFromFile {
 	ReadTrigger rt;
 	integer counter := 0;
-
+	
+	string leftLeg := "Left Leg";
+	string rightLeg := "Right Leg";
+ 	dictionary<integer,Metadata> getNames := new dictionary<integer,Metadata>;
+	
 	action onload(){
+		// Fill dictionary with names of game. 
+		// TEAM A
+		getNames.add(13,Metadata("Nick Gertje", leftLeg));
+		getNames.add(14,Metadata("Nick Gertje", rightLeg));
+		
+		getNames.add(47,Metadata("Dennis Dotterweich",leftLeg));
+		getNames.add(16,Metadata("Dennis Dotterweich",rightLeg));
+		
+		getNames.add(49,Metadata("Niklas Waelzlein",leftLeg));
+		getNames.add(88,Metadata("Niklas Waelzlein",rightLeg));
+		
+		getNames.add(19,Metadata("Wili Sommer",leftLeg));
+		getNames.add(52,Metadata("Wili Sommer",rightLeg));
+		
+		getNames.add(53,Metadata("Philipp Harlass",leftLeg));
+		getNames.add(54,Metadata("Philipp Harlass",rightLeg));
+		
+		getNames.add(23,Metadata("Roman Hartleb",leftLeg));
+		getNames.add(24,Metadata("Roman Hartleb",rightLeg));
+		
+		getNames.add(57,Metadata("Erik Engelhardt",leftLeg));
+		getNames.add(58,Metadata("Erik Engelhardt",rightLeg));
+		
+		getNames.add(59,Metadata("Sandro Schneider",leftLeg));
+		getNames.add(28,Metadata("Sandro Schneider",rightLeg));
+		
+		// TEAM B
+		getNames.add(61,Metadata("Leon Krapf",leftLeg));
+		getNames.add(62,Metadata("Leon Krapf",rightLeg));
+		
+		getNames.add(63,Metadata("Kevin Baer",leftLeg));
+		getNames.add(64,Metadata("Kevin Baer",rightLeg));
+		
+		getNames.add(65,Metadata("Luca Ziegler",leftLeg));
+		getNames.add(66,Metadata("Luca Ziegler",rightLeg));
+		
+		getNames.add(67,Metadata("Ben Mueller",leftLeg));
+		getNames.add(68,Metadata("Ben Mueller",rightLeg));
+		
+		getNames.add(69,Metadata("Vale Reitstetter",leftLeg));
+		getNames.add(38,Metadata("Vale Reitstetter",rightLeg));
+		
+		getNames.add(71,Metadata("Christopher Lee",leftLeg));
+		getNames.add(40,Metadata("Christopher Lee",rightLeg));
+		
+		getNames.add(73,Metadata("Leon Heinze",leftLeg));
+		getNames.add(74,Metadata("Leon Heinze",rightLeg));
+		
+		getNames.add(75,Metadata("Leo Langhans",leftLeg));
+		getNames.add(44,Metadata("Leo Langhans",rightLeg));
+		
 		on all ReadTrigger():rt {
 			StartReadOperations(rt);
 		}
@@ -27,7 +79,7 @@ monitor ReadFromFile {
 		ofr.transportName := "JMultiFileTransport";
 		ofr.requestId := integer.getUnique();
 		ofr.codec := "JCSVCodec";
-		ofr.filename := "D:\\" + rt.filename;
+		ofr.filename := "C:\\Projekte\\APAMA\\Git\\files\\" + rt.filename;
 		ofr.payload["separator"] := ",";
 		ofr.linesInHeader := 0;
 		emit ofr to "FILE";
@@ -51,8 +103,8 @@ monitor ReadFromFile {
 		com.apama.file.FileLine fdata := new com.apama.file.FileLine;
 		on com.apama.file.FileLine(sessionId=rl.sessionId):fdata {
 
-			route Dataset(fdata.data[0].toInteger(), fdata.data[1].toInteger(), fdata.data[2].toInteger(), fdata.data[3].toInteger(), fdata.data[4].toInteger(), fdata.data[5].toInteger());
-
+			route Dataset(getNames.getOrDefault(fdata.data[0].toInteger()).name,getNames.getOrDefault(fdata.data[0].toInteger()).bodypart,fdata.data[0].toInteger(), fdata.data[1].toInteger(), fdata.data[2].toInteger(), fdata.data[3].toInteger(), fdata.data[4].toInteger(), fdata.data[5].toInteger()); 
+			
 			counter := counter + 1;
 			if (counter = 100)
 				then {
@@ -61,6 +113,7 @@ monitor ReadFromFile {
 
 			//print fdata.data.toString();
 			//print "SensorId: " + fdata.data[0];
+			//print getNames.getOrDefault(fdata.data[0].toInteger());
 			ReadFile(fhandle, rt); // to read more lines, call again
 		}
 
@@ -84,12 +137,14 @@ monitor ReadFromFile {
 
 
 
-monitor ExampleListener {
-	Dataset ds;
-	action onload(){
-		on all Dataset(sid=67):ds {
-			print "sid=" + ds.sid.toString() + " belongs to BenMueller";
-		}
-	}
-}
+//monitor ExampleListener {
+//	Dataset ds;
+//	action onload(){
+//		on all Dataset(sid=67):ds {
+//
+//			
+//			//print "sid=" + ds.sid.toString() + " belongs to BenMueller";
+//		}
+//	}
+//}
 
