@@ -1,0 +1,105 @@
+//*****************************************************************************
+// Title:         AggregateRunningStatisticsDataViewer
+// Description:   AggregateRunningStatisticsDataViewer description
+// Dependencies:  None
+// Author:        kerz
+//
+//*****************************************************************************
+
+package saep.Soccer;
+ 
+using com.apama.dataview.DataViewAddDefinition;
+using com.apama.dataview.DataViewException;
+using com.apama.dataview.DataViewDefinition;
+using com.apama.dataview.DataViewAddItem;
+using com.apama.dataview.DataViewItem;
+using com.apama.dataview.DataViewUpdateItem;
+using com.apama.dataview.DataViewItemException;
+
+ 
+
+monitor AggregateRunningStatisticsDataViewer {
+	
+	string DataViewName := "aggregateRunningStatistics";
+	
+	action onload() {
+
+		DataViewAddDefinition add := new DataViewAddDefinition;
+		add.dvName := DataViewName;
+		add.dvDisplayName := "Datasets";
+		add.fieldNames := ["name","ts", "standing_time", "standing_distance", 
+		                   			"trot_time", "trot_distance",
+		                   			"low_time", "low_distance",
+		                   			"medium_time", "medium_distance",
+		                   			"high_time", "high_distance",
+		                   			"sprint_time", "sprint_distance"	];
+		add.fieldTypes := ["string","integer", "integer", "float", "integer", "float", "integer", "float", "integer", "float", "integer", "float", "integer", "float"];
+		add.keyFields := ["name"];
+		add.msgId := integer.getUnique().toString();
+		
+		route add;
+		
+
+		DataViewException dvException;
+		on DataViewException(msgId=add.msgId):dvException
+		and not DataViewDefinition(msgId=add.msgId){
+			log "Exception: " + dvException.message;
+		}
+
+		on DataViewDefinition(msgId=add.msgId){
+			AggregateRunningStatisticsDataset ds;
+			on all AggregateRunningStatisticsDataset():ds {
+				
+				DataViewAddItem item := new DataViewAddItem;
+				item.dvName := DataViewName;
+				item.owner := "*";
+				item.fieldValues := [ds.name, ds.ts.toString(), ds.standing_time.toString(), ds.standing_distance.toString(),
+				                     	    ds.standing_time.toString(), ds.standing_distance.toString(), 
+				                     		ds.low_time.toString(), ds.low_distance.toString(),
+				                     		ds.medium_time.toString(), ds.medium_distance.toString(), 
+				                     		ds.high_time.toString(), ds.high_distance.toString(), 
+				                     		ds.sprint_time.toString(), ds.sprint_distance.toString()];
+				item.timeStamp := currentTime;
+				item.msgId := integer.getUnique().toString();
+
+				route item;
+				DataViewItemException itemExp;
+				on DataViewItemException(msgId=item.msgId):itemExp
+				   and not DataViewItem(msgId=item.msgId){
+					log "Exception: " + itemExp.message;
+				}
+
+				DataViewItem added;
+				on DataViewItem(msgId=item.msgId):added {
+					//log ("DataViewItem: " + added.dvItemId.toString());
+					spawn updateItem(ds.name);
+				}
+
+			}
+		}
+	}
+	
+	action updateItem(string sidIn){
+		AggregateRunningStatisticsDataset ds;
+		on all AggregateRunningStatisticsDataset(name=sidIn):ds {
+			DataViewUpdateItem itemUpdate := new DataViewUpdateItem;
+			itemUpdate.dvName := DataViewName;
+			itemUpdate.fieldValues := [ds.name, ds.ts.toString(), ds.standing_time.toString(), ds.standing_distance.toString(),
+		                     	    ds.standing_time.toString(), ds.standing_distance.toString(), 
+		                     		ds.low_time.toString(), ds.low_distance.toString(),
+		                     		ds.medium_time.toString(), ds.medium_distance.toString(), 
+		                     		ds.high_time.toString(), ds.high_distance.toString(), 
+		                     		ds.sprint_time.toString(), ds.sprint_distance.toString()];itemUpdate.timeStamp := currentTime;
+			itemUpdate.dvItemId := -1;
+			itemUpdate.msgId := integer.getUnique().toString();
+
+			route itemUpdate;
+
+			DataViewItemException itemExp;
+			on DataViewItemException(msgId=itemUpdate.msgId):itemExp {
+				log "\\n\\n\\n\\nException: " + itemExp.message;
+			}
+		}
+		
+	}
+}

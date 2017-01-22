@@ -69,7 +69,6 @@ event CurrentRunningStatisticsDataset {
 	string name;
 	integer ts_start;
 	integer ts_stop;
-	
 	string intensity;
 	float distance;
 	float speed;
@@ -77,14 +76,48 @@ event CurrentRunningStatisticsDataset {
 } 
 
 event AggregateRunningStatisticsDataset {
-	//ts, player_id, standing_time, standing_distance, trot_time, trot_distance, low_time, low_distance, medium_time, medium_distance, high_time, high_distance, sprint_time, sprint_distance 
-
 	string name;
 	integer ts;
-	
 	integer standing_time;
-	integer standing_distance;
+	float standing_distance;
+	integer trot_time;
+	float trot_distance;
+	integer low_time;
+	float low_distance;
+	integer medium_time;
+	float medium_distance;
+	integer high_time;
+	float high_distance;
+	integer sprint_time;
+	float sprint_distance;
 }
+
+event RawEvent{
+	integer sensorId;
+	integer timeStamp;
+	integer x;
+	integer y;
+	integer z;
+	integer velocity;
+	integer acceleration;
+	integer velocityX;
+	integer velocityY;
+	integer velocityZ;
+	integer accelerationX;
+	integer accelerationY;
+	integer accelerationZ;
+	
+	action getSourceTime() returns float {
+		string sec := "0.0";
+		integer length := timeStamp.toString().length();
+		if (length > 4) then {
+			sec := timeStamp.toString().substring(0, 5) + "." + timeStamp.toString().substring(5, length);
+		}
+		return sec.toFloat();
+	}
+}
+
+
 /*
 event aggregatedDataset {
 	string name;

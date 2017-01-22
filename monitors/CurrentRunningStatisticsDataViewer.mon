@@ -83,7 +83,7 @@ monitor CurrentRunningStatisticsDataViewer {
 
 			DataViewItemException itemExp;
 			on DataViewItemException(msgId=itemUpdate.msgId):itemExp {
-				//log "Exception: " + itemExp.message;
+				log "\\n\\n\\n\\nException: " + itemExp.message;
 			}
 		}
 		

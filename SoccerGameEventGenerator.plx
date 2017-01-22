@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+# Create an event file for sending live events. 
 use strict;
 use warnings;
 
@@ -13,14 +14,17 @@ open(my $fh_in, '<:encoding(UTF-8)', $read)
 open(my $fh_out, '>:encoding(UTF-8)', $write)
   or die "Could not open file '$write' $!";
   
-print $fh_out "&FLUSHING(10000)\n";
+print $fh_out "&FLUSHING(8)\n";
 while (my $row = <$fh_in>) {
   chomp $row;
   $row =~ s/^\s+|\s+$//g;
-  if ($count % 10 == 0) { # Each 200. element
-  print $fh_out "&TIME(10634.93102028764025105)\n"; # time between events.
+  
+  #if ($count % 10 == 0) { # Each 200. element
+  my @splittedEvents = split(/,/, $row);
+  my $time = $splittedEvents[1];
+  print $fh_out "&TIME(". substr($time, 0, 4) . "." . substr($time, 4) .")\n"; # time between events.
   print $fh_out "saep.Soccer.RawEvent(". $row . ");\n";
-  }
+  #}
   $count++;
   if ($count % 100000 == 0) {
 	print "Line $count reached.\n";
